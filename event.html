@@ -787,6 +787,13 @@ function openMap(){ window.open('https://www.google.com/maps/search/?api=1&query
 function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
 
 renderSessions(); renderFAQ(); selPay('card'); setLang('cs');
+
+// Load live spot counts from server
+fetch('/api/spots').then(r=>r.json()).then(data=>{
+  if(data.s1 !== undefined) spots['s1'] = data.s1;
+  if(data.s2 !== undefined) spots['s2'] = data.s2;
+  renderSessions();
+}).catch(()=>{});
 </script>
 </body>
 </html>

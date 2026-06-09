@@ -1,5 +1,16 @@
 const nodemailer = require('nodemailer');
 
+async function decrementSpot(sessionId) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return;
+  await fetch(`${url}/pipeline`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify([['DECR', `spots:${sessionId}`]]),
+  });
+}
+
 const SESSIONS = {
   s1: { time: '10:30–11:30', instructor: 'Ivy', langLabel: 'Anglická / English class' },
   s2: { time: '14:00–15:00', instructor: 'Ela', langLabel: 'Česká / Czech class' },
@@ -22,6 +33,7 @@ module.exports = async function handler(req, res) {
 
   await notifyCustomer({ bookingId, name, email, sess, isEn });
   await notifyOrganizer({ bookingId, name, email, phone, sess });
+  await decrementSpot(sessionId);
 
   res.status(200).json({
     ok: true,

@@ -20,10 +20,8 @@ module.exports = async function handler(req, res) {
   const bookingId = `CCC-${Date.now()}`;
   const isEn = lang === 'en';
 
-  await Promise.all([
-    notifyOrganizer({ bookingId, name, email, phone, sess }),
-    notifyCustomer({ bookingId, name, email, sess, isEn }),
-  ]);
+  await notifyCustomer({ bookingId, name, email, sess, isEn });
+  await notifyOrganizer({ bookingId, name, email, phone, sess });
 
   res.status(200).json({
     ok: true,

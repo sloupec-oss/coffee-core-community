@@ -76,13 +76,14 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 /* INSTRUCTORS */
 .instructors{background:var(--linen);padding:60px 0}
 .instructors-header{text-align:center;padding:0 24px 40px}
-.instructor-card{margin:0 24px 32px;background:var(--white);border-radius:28px;overflow:hidden}
-.instr-photo{width:100%;height:320px;object-fit:cover;object-position:top center;display:block}
+.instructor-card{margin:0 24px 32px;background:var(--white);border-radius:28px}
 .instr-body{padding:24px}
-.instr-tag{display:inline-flex;align-items:center;gap:6px;background:var(--linen);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:14px}
-.instr-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--sage-dark);margin-bottom:4px}
-.instr-handle{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-light);margin-bottom:16px;text-decoration:none}
-.instr-handle svg{width:13px;height:13px}
+.instr-header{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.instr-avatar{width:50px;height:50px;border-radius:50%;object-fit:cover;object-position:top center;flex-shrink:0;border:2px solid var(--sage-mist)}
+.instr-tag{display:inline-flex;align-items:center;gap:6px;background:var(--linen);border-radius:100px;padding:4px 12px;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:4px}
+.instr-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--sage-dark);margin-bottom:2px;line-height:1.1}
+.instr-handle{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--sage-light);text-decoration:none}
+.instr-handle svg{width:12px;height:12px}
 .instr-bio{font-size:14px;line-height:1.75;color:var(--text-mid)}
 .instr-divider{width:32px;height:1px;background:var(--sage-mist);margin:16px 0}
 .instr-session{font-size:13px;color:var(--text-dark)}
@@ -324,17 +325,18 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
 
     <!-- IVY -->
   <div class="instructor-card">
-    <img class="instr-photo" src="assets/ivy.jpg" alt="Ivy — pilates instructor" style="object-position:center top">
     <div class="instr-body">
-      <div class="instr-tag">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-        English class
+      <div class="instr-header">
+        <img class="instr-avatar" src="assets/ivy.jpg" alt="Ivy">
+        <div>
+          <div class="instr-tag">English class</div>
+          <div class="instr-name">Ivy</div>
+          <a class="instr-handle" href="https://instagram.com/selflove.journeys" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @selflove.journeys
+          </a>
+        </div>
       </div>
-      <div class="instr-name">Ivy</div>
-      <a class="instr-handle" href="https://instagram.com/selflove.journeys" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        @selflove.journeys
-      </a>
       <p class="instr-bio">I discovered Pilates in Asia a few years ago and quickly fell in love with its effect on both body and mind. Trained in STOTT Pilates across various apparatus, I help clients move better, build core strength, improve alignment, and enjoy what their bodies can achieve.</p>
       <div class="instr-divider"></div>
       <p class="instr-session" data-cs><strong>10:30 – 11:30</strong> · Anglická lekce · 27. června</p>
@@ -344,17 +346,18 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
 
   <!-- ELA -->
   <div class="instructor-card">
-    <img class="instr-photo" src="assets/ela.jpg" alt="Ela — pilates instruktorka" style="object-position:center top">
     <div class="instr-body">
-      <div class="instr-tag">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-        <span data-cs>Česká lekce</span><span data-en style="display:none">Czech class</span>
+      <div class="instr-header">
+        <img class="instr-avatar" src="assets/ela.jpg" alt="Ela">
+        <div>
+          <div class="instr-tag"><span data-cs>Česká lekce</span><span data-en style="display:none">Czech class</span></div>
+          <div class="instr-name">Ela</div>
+          <a class="instr-handle" href="https://instagram.com/pilates.with.ela" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @pilates.with.ela
+          </a>
+        </div>
       </div>
-      <div class="instr-name">Ela</div>
-      <a class="instr-handle" href="https://instagram.com/pilates.with.ela" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        @pilates.with.ela
-      </a>
       <p class="instr-bio" data-cs>Pohyb je pro mě celoživotní cestou k sobě. Díky vlastní zkušenosti s hypermobilitou vím, jak důležité je najít v těle pevnou oporu. Díky Pilates vnímám pohyb v souvislostech — propojuji celé tělo s logikou a precizností. Kladu důraz na vědomé propojení těla a mysli.</p>
       <p class="instr-bio" data-en style="display:none">Movement is my lifelong path to self-discovery. Through my own experience with hypermobility, I understand how important it is to find strength and stability in the body. I connect the whole body with logic and precision, emphasising the conscious body-mind connection.</p>
       <div class="instr-divider"></div>
@@ -531,7 +534,9 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
   <div class="foot-logo">Coffee, Core &amp; Community</div>
   <div class="foot-sub">by Ivy &amp; Ela</div>
   <div style="display:flex;justify-content:center;gap:16px;margin-bottom:16px">
-    <a href="https://instagram.com/pilates.with.ela" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@selflove.journeys</a>
+    <a href="https://instagram.com/selflove.journeys" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@selflove.journeys</a>
+    <span style="color:var(--sage-light);font-size:12px">·</span>
+    <a href="https://instagram.com/pilates.with.ela" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@pilates.with.ela</a>
   </div>
   <div class="foot-copy" data-cs>Ve spolupráci s Arnoldova Vila &amp; Cecilie Café · Brno</div>
   <div class="foot-copy" data-en style="display:none">In partnership with Arnoldova Vila &amp; Cecilie Café · Brno</div>

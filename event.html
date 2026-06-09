@@ -574,7 +574,7 @@ bookings.forEach(b => { if(spots[b.sid]!==undefined) spots[b.sid]=Math.max(0,spo
     bookings.push(b);
     localStorage.setItem('rl_bookings', JSON.stringify(bookings));
     spots[sid] = Math.max(0, spots[sid] - 1);
-    window.addEventListener('DOMContentLoaded', () => showSuccessScreen(name, email, s));
+    window.addEventListener('DOMContentLoaded', () => showSuccessScreen(name, email, s, false));
   } else if (p.get('cancel') === 'true') {
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('errorMsg').style.display = 'block';
@@ -724,7 +724,7 @@ async function submitBooking() {
         bookings.push(b);
         localStorage.setItem('rl_bookings',JSON.stringify(bookings));
         spots[selSession]=Math.max(0,spots[selSession]-1);
-        showSuccessScreen(name, email, s);
+        showSuccessScreen(name, email, s, true);
       } else {
         throw new Error(data.error || 'Reserve failed');
       }
@@ -736,10 +736,16 @@ async function submitBooking() {
   }
 }
 
-function showSuccessScreen(name, email, s) {
+function showSuccessScreen(name, email, s, isCash) {
   document.getElementById('booking').style.display='none';
   const screen = document.getElementById('successScreen');
   screen.classList.add('vis');
+  const cancelNote = isCash ? `
+    <div style="margin-top:14px;background:#F5F0E8;border-radius:12px;padding:13px 15px;font-size:12px;color:var(--text-mid);line-height:1.6;text-align:left">
+      ${lang==='cs'
+        ? `Potřebuješ zrušit rezervaci? Napiš nám na <a href="mailto:pilatesarnoldovavila@gmail.com" style="color:var(--sage-dark);font-weight:500">pilatesarnoldovavila@gmail.com</a>`
+        : `Need to cancel? Email us at <a href="mailto:pilatesarnoldovavila@gmail.com" style="color:var(--sage-dark);font-weight:500">pilatesarnoldovavila@gmail.com</a>`}
+    </div>` : '';
   document.getElementById('sucDetail').innerHTML=`
     <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-light);margin-bottom:14px">${lang==='cs'?'Detaily':'Details'}</div>
     ${[
@@ -752,7 +758,8 @@ function showSuccessScreen(name, email, s) {
     <div style="display:flex;justify-content:space-between">
       <span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--sage-dark)">${lang==='cs'?'Celkem':'Total'}</span>
       <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--sage-dark)">350 Kč</span>
-    </div>`;
+    </div>
+    ${cancelNote}`;
   window.scrollTo({top:screen.offsetTop-20,behavior:'smooth'});
   showToast(lang==='cs'?'✓ Rezervace potvrzena!':'✓ Booking confirmed!');
 }

@@ -715,7 +715,7 @@ async function submitBooking() {
       const res = await fetch('/api/reserve', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({sessionId:selSession, name, email, phone, paymentMethod:selPayment}),
+        body: JSON.stringify({sessionId:selSession, name, email, phone, paymentMethod:selPayment, lang}),
       });
       const data = await res.json();
       if (data.ok) {

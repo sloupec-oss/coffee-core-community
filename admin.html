@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Coffee, Core & Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5F0E8;
+  --cream-dark: #EDE5D4;
+  --linen: #FAF7F2;
+  --sage: #4A5E4A;
+  --sage-dark: #2E3D2E;
+  --sage-light: #7A9478;
+  --text-dark: #1C2318;
+  --text-mid: #4A4A3A;
+  --text-light: #7A7A6A;
+  --white: #FDFCF9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:40px 20px}
+
+#loginScreen{width:100%;max-width:360px;text-align:center;margin-top:80px}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--sage-dark);margin-bottom:8px}
+.login-sub{font-size:13px;color:var(--text-light);margin-bottom:32px}
+.login-input{width:100%;padding:14px 16px;border:1.5px solid var(--cream-dark);border-radius:12px;background:var(--white);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;text-align:center;letter-spacing:.15em}
+.login-input:focus{border-color:var(--sage-light)}
+.login-btn{margin-top:12px;width:100%;padding:14px;background:var(--sage-dark);color:var(--cream);border:none;border-radius:12px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;letter-spacing:.05em}
+.login-err{margin-top:10px;font-size:12px;color:#C17B5C;display:none}
+
+#dashboard{width:100%;max-width:480px;display:none}
+.dash-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px;margin-top:16px}
+.dash-title{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--sage-dark)}
+.dash-logout{font-size:12px;color:var(--text-light);cursor:pointer;text-decoration:underline}
+
+.section-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-light);margin-bottom:10px}
+
+.spots-card{background:var(--white);border-radius:16px;padding:4px 0;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.spot-row{display:flex;align-items:center;padding:16px 20px;border-bottom:1px solid var(--cream-dark)}
+.spot-row:last-child{border-bottom:none}
+.spot-info{flex:1}
+.spot-time{font-size:15px;font-weight:500;color:var(--text-dark)}
+.spot-sub{font-size:12px;color:var(--text-light);margin-top:2px}
+.spot-count{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--sage-dark);min-width:36px;text-align:center;margin:0 16px}
+.spot-count.full{color:var(--text-light)}
+.restore-btn{background:var(--sage);color:var(--white);border:none;border-radius:50px;padding:8px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer}
+.restore-btn:disabled{opacity:.4;cursor:not-allowed}
+
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:28px}
+.stat-box{background:var(--white);border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--sage-dark);line-height:1}
+.stat-lbl{font-size:10px;color:var(--text-light);margin-top:4px;text-transform:uppercase;letter-spacing:.1em}
+
+.bookings-list{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
+.booking-card{background:var(--white);border-radius:14px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.04);border-left:3px solid var(--sage-light)}
+.booking-name{font-weight:500;font-size:15px;margin-bottom:4px}
+.booking-detail{font-size:12px;color:var(--text-light);line-height:1.7}
+.payment-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:50px;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+.payment-badge.card{background:#E8F0E8;color:var(--sage-dark)}
+.payment-badge.cash{background:#F5EDE4;color:#8B5A3A}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--sage-dark);color:var(--cream);padding:12px 24px;border-radius:100px;font-size:13px;font-weight:500;transition:transform .4s cubic-bezier(.175,.885,.32,1.275);white-space:nowrap;z-index:99}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-title">Coffee, Core & Community</div>
+  <div class="login-sub">Admin přístup</div>
+  <input class="login-input" type="password" id="passInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
+  <button class="login-btn" onclick="login()">Vstoupit</button>
+  <div class="login-err" id="loginErr">Nesprávné heslo</div>
+</div>
+
+<div id="dashboard">
+  <div class="dash-header">
+    <div class="dash-title">Rezervace</div>
+    <span class="dash-logout" onclick="logout()">Odhlásit</span>
+  </div>
+
+  <div class="section-label">Volná místa</div>
+  <div class="spots-card" id="spotsCard"></div>
+
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <div class="section-label">Rezervace</div>
+  <div class="bookings-list" id="bookingsList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ADMIN_PASS = 'reformlab2025';
+const SESSIONS = [
+  { id: 's1', time: '10:30–11:30', instructor: 'Ivy', label: 'Anglická lekce' },
+  { id: 's2', time: '14:00–15:00', instructor: 'Ela', label: 'Česká lekce' },
+];
+let spots = { s1: '?', s2: '?' };
+
+function login() {
+  const val = document.getElementById('passInput').value;
+  if (val !== ADMIN_PASS) {
+    document.getElementById('loginErr').style.display = 'block';
+    return;
+  }
+  sessionStorage.setItem('ccc_admin', '1');
+  showDashboard();
+}
+
+function logout() {
+  sessionStorage.removeItem('ccc_admin');
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'block';
+  document.getElementById('passInput').value = '';
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadSpots();
+  renderBookings();
+}
+
+async function loadSpots() {
+  try {
+    const r = await fetch('/api/spots');
+    const d = await r.json();
+    spots.s1 = d.s1;
+    spots.s2 = d.s2;
+  } catch(e) {}
+  renderSpots();
+}
+
+function renderSpots() {
+  document.getElementById('spotsCard').innerHTML = SESSIONS.map(s => `
+    <div class="spot-row">
+      <div class="spot-info">
+        <div class="spot-time">${s.time} · ${s.instructor}</div>
+        <div class="spot-sub">${s.label}</div>
+      </div>
+      <div class="spot-count ${spots[s.id] === 0 ? 'full' : ''}" id="cnt-${s.id}">${spots[s.id]}</div>
+      <button class="restore-btn" id="rbtn-${s.id}" onclick="restoreSpot('${s.id}')">+1 místo</button>
+    </div>
+  `).join('');
+}
+
+async function restoreSpot(sid) {
+  const btn = document.getElementById(`rbtn-${sid}`);
+  btn.disabled = true;
+  btn.textContent = '…';
+  try {
+    const r = await fetch('/api/restore-spot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId: sid }),
+    });
+    const d = await r.json();
+    if (d.ok) {
+      spots[sid] = d.spots;
+      renderSpots();
+      renderStats();
+      showToast('✓ Místo vráceno');
+    } else {
+      showToast('Chyba: ' + (d.error || '?'));
+    }
+  } catch(e) {
+    showToast('Chyba spojení');
+  }
+  const b2 = document.getElementById(`rbtn-${sid}`);
+  if (b2) { b2.disabled = false; b2.textContent = '+1 místo'; }
+}
+
+function renderBookings() {
+  const bks = JSON.parse(localStorage.getItem('rl_bookings') || '[]');
+  renderStats(bks);
+  document.getElementById('bookingsList').innerHTML = bks.length === 0
+    ? '<p style="text-align:center;color:var(--text-light);padding:32px 0;font-size:13px">Žádné rezervace</p>'
+    : [...bks].reverse().map(b => `
+      <div class="booking-card">
+        <div class="booking-name">${b.name}</div>
+        <div class="booking-detail">
+          ${b.email}<br>
+          ${b.stime} · ${b.sinstructor}<br>
+          <span class="payment-badge ${b.payment}">${b.payment === 'card' ? 'Karta' : 'Hotovost'}</span>
+          &nbsp;<span style="color:var(--text-light);font-size:11px">${new Date(b.at).toLocaleString('cs')}</span>
+        </div>
+      </div>`).join('');
+}
+
+function renderStats(bks) {
+  bks = bks || JSON.parse(localStorage.getItem('rl_bookings') || '[]');
+  const total = bks.length;
+  const cash = bks.filter(b => b.payment === 'cash').length;
+  const card = bks.filter(b => b.payment === 'card').length;
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-lbl">Celkem</div></div>
+    <div class="stat-box"><div class="stat-num">${card}</div><div class="stat-lbl">Karta</div></div>
+    <div class="stat-box"><div class="stat-num">${cash}</div><div class="stat-lbl">Hotovost</div></div>`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// Auto-login if session active
+if (sessionStorage.getItem('ccc_admin') === '1') showDashboard();
+</script>
+</body>
+</html>

@@ -467,6 +467,10 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
   </div>
 
   <div id="submitArea">
+    <div id="noSessionNote" style="margin-bottom:10px;font-size:13px;color:var(--text-light);text-align:center">
+      <span data-cs>👆 Nejdříve vyber lekci výše</span>
+      <span data-en style="display:none">👆 Please select a session above</span>
+    </div>
     <button class="btn-primary" onclick="submitBooking()" id="submitBtn" disabled>
       <span id="submitLabel-cs" data-cs>Zaplatit 350 Kč →</span>
       <span id="submitLabel-en" data-en style="display:none">Pay 350 Kč →</span>
@@ -673,6 +677,7 @@ function updateBtn() {
   const email = document.getElementById('iEmail').value.trim();
   const ok = selSession && name.length>1 && email.includes('@');
   document.getElementById('submitBtn').disabled = !ok;
+  document.getElementById('noSessionNote').style.display = selSession ? 'none' : 'block';
   updateSubmitLabel();
 }
 

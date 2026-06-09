@@ -770,7 +770,7 @@ function openAdmin(){
   document.getElementById('adminPanel').classList.add('open');
 }
 function closeAdmin(){ document.getElementById('adminPanel').classList.remove('open'); }
-function openMap(){ window.open('https://maps.google.com/?q=Drobného+299/26+Brno','_blank'); }
+function openMap(){ window.open('https://www.google.com/maps/search/?api=1&query=49.207132,16.614446','_blank'); }
 function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
 
 renderSessions(); renderFAQ(); selPay('card'); setLang('cs');

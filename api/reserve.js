@@ -3,8 +3,8 @@
 // Uses Resend if RESEND_API_KEY is set, otherwise logs only.
 
 const SESSIONS = {
-  s1: { time: '10:00–10:50', instructor: 'Ivy', langLabel: 'Anglická / English class' },
-  s2: { time: '13:30–14:20', instructor: 'Ela', langLabel: 'Česká / Czech class' },
+  s1: { time: '10:30–11:30', instructor: 'Ivy', langLabel: 'Anglická / English class' },
+  s2: { time: '14:00–15:00', instructor: 'Ela', langLabel: 'Česká / Czech class' },
 };
 
 module.exports = async function handler(req, res) {

@@ -2,13 +2,13 @@ const Stripe = require('stripe');
 
 const SESSIONS = {
   s1: {
-    time: '10:00–10:50',
+    time: '10:30–11:30',
     instructor: 'Ivy',
     langCs: 'Anglická lekce',
     langEn: 'English class',
   },
   s2: {
-    time: '13:30–14:20',
+    time: '14:00–15:00',
     instructor: 'Ela',
     langCs: 'Česká lekce',
     langEn: 'Czech class',

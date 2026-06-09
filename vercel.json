@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/reformlab-event.html", "destination": "/event.html", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],

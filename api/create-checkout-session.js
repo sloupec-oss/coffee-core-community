@@ -59,8 +59,8 @@ module.exports = async function handler(req, res) {
       },
     ],
     mode: 'payment',
-    success_url: `${baseUrl}/reformlab-event.html?success=true&sid=${sessionId}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`,
-    cancel_url: `${baseUrl}/reformlab-event.html?cancel=true`,
+    success_url: `${baseUrl}/event.html?success=true&sid=${sessionId}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`,
+    cancel_url: `${baseUrl}/event.html?cancel=true`,
     metadata: {
       sessionId,
       sessionTime: sess.time,

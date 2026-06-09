@@ -44,8 +44,11 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .spot-sub{font-size:12px;color:var(--text-light);margin-top:2px}
 .spot-count{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--sage-dark);min-width:36px;text-align:center;margin:0 16px}
 .spot-count.full{color:var(--text-light)}
+.spot-btns{display:flex;gap:8px}
 .restore-btn{background:var(--sage);color:var(--white);border:none;border-radius:50px;padding:8px 18px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer}
 .restore-btn:disabled{opacity:.4;cursor:not-allowed}
+.take-btn{background:var(--white);color:var(--sage-dark);border:1.5px solid var(--cream-dark);border-radius:50px;padding:7px 16px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer}
+.take-btn:disabled{opacity:.4;cursor:not-allowed}
 
 .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:28px}
 .stat-box{background:var(--white);border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.04)}
@@ -141,7 +144,10 @@ function renderSpots() {
         <div class="spot-sub">${s.label}</div>
       </div>
       <div class="spot-count ${spots[s.id] === 0 ? 'full' : ''}" id="cnt-${s.id}">${spots[s.id]}</div>
-      <button class="restore-btn" id="rbtn-${s.id}" onclick="restoreSpot('${s.id}')">+1 místo</button>
+      <div class="spot-btns">
+        <button class="take-btn" id="tbtn-${s.id}" onclick="takeSpot('${s.id}')">−1</button>
+        <button class="restore-btn" id="rbtn-${s.id}" onclick="restoreSpot('${s.id}')">+1</button>
+      </div>
     </div>
   `).join('');
 }
@@ -169,7 +175,34 @@ async function restoreSpot(sid) {
     showToast('Chyba spojení');
   }
   const b2 = document.getElementById(`rbtn-${sid}`);
-  if (b2) { b2.disabled = false; b2.textContent = '+1 místo'; }
+  if (b2) { b2.disabled = false; b2.textContent = '+1'; }
+}
+
+async function takeSpot(sid) {
+  if (spots[sid] <= 0) { showToast('Už nejsou žádná místa'); return; }
+  const btn = document.getElementById(`tbtn-${sid}`);
+  btn.disabled = true;
+  btn.textContent = '…';
+  try {
+    const r = await fetch('/api/take-spot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId: sid }),
+    });
+    const d = await r.json();
+    if (d.ok) {
+      spots[sid] = d.spots;
+      renderSpots();
+      renderStats();
+      showToast('✓ Místo ubráno');
+    } else {
+      showToast('Chyba: ' + (d.error || '?'));
+    }
+  } catch(e) {
+    showToast('Chyba spojení');
+  }
+  const b2 = document.getElementById(`tbtn-${sid}`);
+  if (b2) { b2.disabled = false; b2.textContent = '−1'; }
 }
 
 function renderBookings() {

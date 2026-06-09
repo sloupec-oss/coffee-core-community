@@ -41,7 +41,7 @@ module.exports = async function handler(req, res) {
   });
 
   const checkoutSession = await stripe.checkout.sessions.create({
-    automatic_payment_methods: { enabled: true },
+    payment_method_types: ['card'],
     customer_email: email,
     locale: lang === 'en' ? 'en' : 'cs',
     line_items: [

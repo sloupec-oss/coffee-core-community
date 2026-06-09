@@ -86,7 +86,7 @@ Stripe Payment ID: ${paymentId}
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Coffee Core Community <onboarding@resend.dev>',
+          from: 'Core Coffee Community <onboarding@resend.dev>',
           to: [organizer],
           subject,
           text: body,

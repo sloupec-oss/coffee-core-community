@@ -49,7 +49,7 @@ module.exports = async function handler(req, res) {
         price_data: {
           currency: 'czk',
           product_data: {
-            name: `Coffee, Core & Community — ${sess.time}`,
+            name: `Core, Coffee & Community — ${sess.time}`,
             description: `${langLabel} · s ${sess.instructor} · Arnoldova Vila, Brno · 27. 6. 2025`,
             images: [`${baseUrl}/assets/hero-bg.jpg`],
           },

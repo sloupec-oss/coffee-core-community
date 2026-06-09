@@ -55,8 +55,8 @@ function getTransporter() {
 async function notifyCustomer({ bookingId, name, email, sess, isEn }) {
   const transporter = getTransporter();
   const subject = isEn
-    ? `Booking confirmed — Coffee, Core & Community ${sess.time}`
-    : `Rezervace potvrzena — Coffee, Core & Community ${sess.time}`;
+    ? `Booking confirmed — Core, Coffee & Community ${sess.time}`
+    : `Rezervace potvrzena — Core, Coffee & Community ${sess.time}`;
 
   const text = isEn
     ? `Hi ${name},
@@ -88,7 +88,7 @@ Ivy & Ela`;
 
   try {
     await transporter.sendMail({
-      from: `Coffee Core Community <${process.env.ORGANIZER_EMAIL}>`,
+      from: `Core Coffee Community <${process.env.ORGANIZER_EMAIL}>`,
       to: email,
       subject,
       text,
@@ -120,7 +120,7 @@ Zkontrolujte platbu před lekcí.`;
 
   try {
     await transporter.sendMail({
-      from: `Coffee Core Community <${organizer}>`,
+      from: `Core Coffee Community <${organizer}>`,
       to: organizer,
       subject,
       text,

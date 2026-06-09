@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Coffee, Core & Community — ReformLab × Arnoldova Vila</title>
+<title>Coffee, Core & Community — Ivy & Ela × Arnoldova Vila</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -27,7 +27,9 @@ html{scroll-behavior:smooth}
 body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* LANG BAR */
-.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:flex-end;padding:14px 20px;pointer-events:none}
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;pointer-events:none}
+.back-btn{pointer-events:all;display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:100px;border:1px solid rgba(74,94,74,0.2);padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.06em;color:var(--text-mid);text-decoration:none;text-transform:uppercase;transition:background .2s}
+.back-btn:active{background:rgba(245,240,232,1)}
 .lang-toggle{pointer-events:all;display:flex;background:rgba(245,240,232,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:100px;border:1px solid rgba(74,94,74,0.2);overflow:hidden}
 .lang-btn{background:none;border:none;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.08em;color:var(--text-light);cursor:pointer;transition:all .25s;text-transform:uppercase}
 .lang-btn.active{background:var(--sage);color:var(--cream);border-radius:100px}
@@ -223,6 +225,10 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
 
 <!-- LANG BAR -->
 <div class="lang-bar">
+  <a class="back-btn" href="index.html">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    <span data-cs>Zpět</span><span data-en style="display:none">Back</span>
+  </a>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('cs')" id="btnCs">CZ</button>
     <button class="lang-btn" onclick="setLang('en')" id="btnEn">EN</button>
@@ -250,7 +256,7 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
     <div class="scroll-txt">scroll</div>
   </div>
   <div class="hero-content">
-    <p class="hero-eyebrow">ReformLab × Arnoldova Vila × Cecilie Café</p>
+    <p class="hero-eyebrow">Ivy &amp; Ela × Arnoldova Vila × Cecilie Café</p>
     <h1 class="hero-title">
       <span>Coffee,</span>
       <span>Core</span>
@@ -522,19 +528,13 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-logo">ReformLab</div>
-  <div class="foot-sub">reformlab.cz</div>
-  <div class="foot-links">
-    <a href="https://instagram.com/reformlab.cz" target="_blank">Instagram</a>
-    <a href="mailto:hello@reformlab.cz">Email</a>
-  </div>
-  <div style="display:flex;justify-content:center;gap:16px;margin-bottom:8px">
-    <a href="https://instagram.com/pilates.with.ela" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@selflove.journeys</a>
-    <span style="color:var(--sage-light);font-size:12px">·</span>
+  <div class="foot-logo">Coffee, Core &amp; Community</div>
+  <div class="foot-sub">by Ivy &amp; Ela</div>
+  <div style="display:flex;justify-content:center;gap:16px;margin-bottom:16px">
     <a href="https://instagram.com/pilates.with.ela" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@selflove.journeys</a>
   </div>
-  <div class="foot-copy" data-cs>© 2025 ReformLab. Všechna práva vyhrazena.</div>
-  <div class="foot-copy" data-en style="display:none">© 2025 ReformLab. All rights reserved.</div>
+  <div class="foot-copy" data-cs>Ve spolupráci s Arnoldova Vila &amp; Cecilie Café · Brno</div>
+  <div class="foot-copy" data-en style="display:none">In partnership with Arnoldova Vila &amp; Cecilie Café · Brno</div>
   <a class="admin-link" href="#" onclick="openAdmin();return false">⚙ admin</a>
 </footer>
 

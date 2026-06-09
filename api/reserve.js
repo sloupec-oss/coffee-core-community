@@ -88,7 +88,7 @@ Ivy & Ela`;
 
   try {
     await transporter.sendMail({
-      from: `Core Coffee Community <${process.env.ORGANIZER_EMAIL}>`,
+      from: `Core, Coffee & Community <${process.env.ORGANIZER_EMAIL}>`,
       to: email,
       subject,
       text,
@@ -120,7 +120,7 @@ Zkontrolujte platbu před lekcí.`;
 
   try {
     await transporter.sendMail({
-      from: `Core Coffee Community <${organizer}>`,
+      from: `Core, Coffee & Community <${organizer}>`,
       to: organizer,
       subject,
       text,

@@ -323,7 +323,7 @@ function renderEvents() {
         <span style="font-size:12px;color:var(--text-light)">${lang==='cs'?'s ':'with '}${s.instructor}</span>
       </div>`).join('');
     return `<a class="event-card" href="${ev.file}">
-      <img class="event-card-img" src="assets/hero-bg.jpg" alt="${ev.titleCs}" onerror="this.style.display='none'">
+      <img class="event-card-img" src="assets/event.png" alt="${ev.titleCs}" onerror="this.style.display='none'">
       <div class="event-card-body">
         <div class="event-card-meta">
           <div class="event-badge ${soldOut?'sold-out':''}">${statusLabel}</div>

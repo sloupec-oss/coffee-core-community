@@ -527,8 +527,8 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
 
 <script>
 const SESSIONS = [
-  { id:'s1', time:'10:30', endTime:'11:30', instructor:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce',en:'English class'}, spots:12, max:12 },
-  { id:'s2', time:'14:00', endTime:'15:00', instructor:'Ela', lang:'cs', langLabel:{cs:'Česká lekce',en:'Czech class'}, spots:12, max:12 },
+  { id:'s1', time:'10:30', endTime:'11:30', instructor:'Ivy', instructorCs:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce',en:'English class'}, spots:12, max:12 },
+  { id:'s2', time:'14:00', endTime:'15:00', instructor:'Ela', instructorCs:'Eli', lang:'cs', langLabel:{cs:'Česká lekce',en:'Czech class'}, spots:12, max:12 },
 ];
 const PRICE = 350;
 const FAQ_CS = [
@@ -603,7 +603,7 @@ function renderSessions() {
         <div class="sess-time">${s.time}</div>
         <div class="sess-info">
           <div class="sess-lang">${s.langLabel[lang]}</div>
-          <div class="sess-instructor">${lang==='cs'?'s ':'with '}${s.instructor}</div>
+          <div class="sess-instructor">${lang==='cs'?'s '+s.instructorCs:'with '+s.instructor}</div>
           <div class="sess-spots"><span class="spot-dot${few?' few':''}"></span>${spotsT}</div>
         </div>
         <div class="sess-right">

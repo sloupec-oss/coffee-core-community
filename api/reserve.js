@@ -36,7 +36,7 @@ async function sendEmail({ to, subject, text }) {
     return;
   }
   try {
-    await fetch('https://api.resend.com/emails', {
+    const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
@@ -49,8 +49,14 @@ async function sendEmail({ to, subject, text }) {
         text,
       }),
     });
+    if (!r.ok) {
+      const err = await r.text();
+      console.error(`Resend error ${r.status} → ${to}:`, err);
+    } else {
+      console.log(`Email sent → ${to}`);
+    }
   } catch (e) {
-    console.error('Resend error:', e.message);
+    console.error('Resend fetch error:', e.message);
   }
 }
 

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Coffee, Core & Community — ReformLab × Arnoldova Vila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5F0E8;
+  --cream-dark: #EDE5D4;
+  --linen: #FAF7F2;
+  --sage: #4A5E4A;
+  --sage-dark: #2E3D2E;
+  --sage-light: #7A9478;
+  --sage-mist: #C8D5C4;
+  --terracotta: #C17B5C;
+  --text-dark: #1C2318;
+  --text-mid: #4A4A3A;
+  --text-light: #7A7A6A;
+  --white: #FDFCF9;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* LANG BAR */
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:flex-end;padding:14px 20px;pointer-events:none}
+.lang-toggle{pointer-events:all;display:flex;background:rgba(245,240,232,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:100px;border:1px solid rgba(74,94,74,0.2);overflow:hidden}
+.lang-btn{background:none;border:none;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.08em;color:var(--text-light);cursor:pointer;transition:all .25s;text-transform:uppercase}
+.lang-btn.active{background:var(--sage);color:var(--cream);border-radius:100px}
+
+/* HERO */
+.hero{min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-photo{position:absolute;inset:0;background:url('assets/hero-bg.jpg') center 30%/cover no-repeat;z-index:0;animation:heroZoom 18s ease-out forwards}
+@keyframes heroZoom{from{transform:scale(1.04)}to{transform:scale(1.0)}}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,35,24,.1) 0%,rgba(28,35,24,0) 25%,rgba(28,35,24,.55) 65%,rgba(28,35,24,.88) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;padding:0 24px 52px;animation:fadeUp 1.2s ease forwards;animation-delay:.3s;opacity:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-mist);margin-bottom:16px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(58px,15vw,82px);line-height:.93;color:var(--cream);margin-bottom:22px;letter-spacing:-.01em}
+.hero-title span{display:block}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,.13);border:1px solid rgba(245,240,232,.28);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--cream);letter-spacing:.05em;backdrop-filter:blur(6px)}
+.hero-pill svg{width:12px;height:12px;opacity:.7}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--sage);color:var(--cream);border:none;border-radius:100px;padding:16px 32px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .3s,transform .2s}
+.hero-cta:active{transform:scale(.97)}
+.hero-cta svg{width:15px;height:15px}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounceD 2.5s ease-in-out infinite;animation-delay:2.5s}
+@keyframes bounceD{0%,60%,100%{transform:translateX(-50%) translateY(0)}30%{transform:translateX(-50%) translateY(7px)}}
+.scroll-line{width:1px;height:32px;background:rgba(245,240,232,.35)}
+.scroll-txt{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.35)}
+
+/* PARTNERS STRIP */
+.partners-strip{background:var(--sage-dark);padding:18px 24px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.partners-strip span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-mist)}
+.partners-dot{width:3px;height:3px;border-radius:50%;background:var(--sage-light)}
+.partners-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--cream)}
+
+/* ABOUT */
+.about{background:var(--cream);padding:60px 24px;text-align:center}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-light);margin-bottom:12px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,38px);font-weight:400;color:var(--sage-dark);margin-bottom:8px}
+.section-title em{font-style:italic}
+.about-body{font-size:15px;line-height:1.75;color:var(--text-mid);max-width:340px;margin:0 auto 36px}
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:360px;margin:0 auto}
+.feat{background:var(--linen);border-radius:16px;padding:20px 16px;text-align:left}
+.feat-icon{font-size:22px;margin-bottom:10px;display:block}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--sage-dark);margin-bottom:4px}
+.feat-desc{font-size:12px;color:var(--text-light);line-height:1.5}
+
+/* INSTRUCTORS */
+.instructors{background:var(--linen);padding:60px 0}
+.instructors-header{text-align:center;padding:0 24px 40px}
+.instructor-card{margin:0 24px 32px;background:var(--white);border-radius:28px;overflow:hidden}
+.instr-photo{width:100%;height:320px;object-fit:cover;object-position:top center;display:block}
+.instr-body{padding:24px}
+.instr-tag{display:inline-flex;align-items:center;gap:6px;background:var(--linen);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:14px}
+.instr-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--sage-dark);margin-bottom:4px}
+.instr-handle{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-light);margin-bottom:16px;text-decoration:none}
+.instr-handle svg{width:13px;height:13px}
+.instr-bio{font-size:14px;line-height:1.75;color:var(--text-mid)}
+.instr-divider{width:32px;height:1px;background:var(--sage-mist);margin:16px 0}
+.instr-session{font-size:13px;color:var(--text-dark)}
+.instr-session strong{color:var(--sage-dark)}
+
+/* SESSIONS */
+.sessions-section{background:var(--cream);padding:60px 24px}
+.section-subtitle{font-size:13px;color:var(--text-light);text-align:center;margin-bottom:32px;line-height:1.6}
+.session-card{background:var(--white);border-radius:20px;padding:22px 20px;margin-bottom:12px;border:1.5px solid transparent;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.session-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sage-mist);transition:background .25s}
+.session-card.selected{border-color:var(--sage);background:#F0F4EE}
+.session-card.selected::before{background:var(--sage)}
+.sess-row{display:flex;align-items:center;gap:14px}
+.sess-time{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;color:var(--sage-dark);line-height:1;min-width:90px}
+.sess-info{flex:1}
+.sess-instructor{font-size:14px;font-weight:500;color:var(--text-dark);margin-bottom:3px}
+.sess-lang{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--sage);background:rgba(74,94,74,.1);padding:2px 10px;border-radius:100px;margin-bottom:5px}
+.sess-spots{font-size:12px;color:var(--text-light);display:flex;align-items:center;gap:5px}
+.spot-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sage-light)}
+.spot-dot.few{background:var(--terracotta)}
+.sess-right{text-align:right}
+.sess-price{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--sage-dark)}
+.sess-price span{display:block;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:400;color:var(--text-light)}
+.sess-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--sage-mist);display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0}
+.session-card.selected .sess-check{background:var(--sage);border-color:var(--sage)}
+.sess-check svg{display:none}
+.session-card.selected .sess-check svg{display:block}
+
+/* BOOKING */
+.booking-section{background:var(--linen);padding:60px 24px}
+.booking-summary{background:var(--white);border-radius:20px;padding:20px;margin-bottom:20px;display:none}
+.sum-label{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--sage-light);margin-bottom:14px}
+.sum-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:9px}
+.sum-key{color:var(--text-light)}
+.sum-val{font-weight:500;color:var(--text-dark);text-align:right;max-width:200px}
+.sum-div{height:1px;background:var(--cream-dark);margin:12px 0}
+.sum-total-k{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--sage-dark)}
+.sum-total-v{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--sage-dark)}
+.form-card{background:var(--white);border-radius:24px;padding:28px 22px;margin-bottom:16px}
+.form-step{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--sage-light);margin-bottom:8px}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--sage-dark);margin-bottom:24px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:7px}
+.field input{width:100%;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:300;color:var(--text-dark);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.field input:focus{border-color:var(--sage)}
+.field input::placeholder{color:var(--text-light);opacity:.6}
+.pay-options{display:flex;flex-direction:column;gap:10px}
+.pay-opt{display:flex;align-items:center;gap:14px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:14px;padding:16px;cursor:pointer;transition:all .2s}
+.pay-opt.selected{border-color:var(--sage);background:#F0F4EE}
+.pay-radio{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--sage-mist);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.pay-opt.selected .pay-radio{border-color:var(--sage);background:var(--sage)}
+.pay-dot{width:8px;height:8px;border-radius:50%;background:var(--cream);display:none}
+.pay-opt.selected .pay-dot{display:block}
+.pay-icon{width:36px;height:36px;background:var(--white);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pay-name{font-size:14px;font-weight:500;color:var(--text-dark);margin-bottom:2px}
+.pay-desc{font-size:12px;color:var(--text-light)}
+.stripe-panel{display:none;margin-top:14px}
+.stripe-panel.vis{display:block}
+.stripe-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.stripe-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-light)}
+.stripe-badge svg{width:13px;height:13px;color:#635BFF}
+.card-field{background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--text-light);display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card-icons{display:flex;gap:6px}
+.ci{width:32px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.04em}
+.ci.visa{background:#1A1F71;color:#fff}
+.ci.mc{background:#EB001B;color:#fff}
+.qr-panel{display:none;background:var(--linen);border-radius:16px;padding:22px;margin-top:14px;text-align:center}
+.qr-panel.vis{display:block}
+.qr-amount{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--sage-dark);margin-bottom:10px}
+.qr-img{width:150px;height:150px;background:#fff;border-radius:12px;margin:0 auto 12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.qr-note{font-size:12px;color:var(--text-light);line-height:1.6}
+.cash-note{display:none;background:var(--linen);border-radius:14px;padding:16px;margin-top:14px;font-size:13px;color:var(--text-mid);line-height:1.6}
+.btn-primary{width:100%;background:var(--sage-dark);color:var(--cream);border:none;border-radius:16px;padding:18px 24px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .25s,transform .15s;margin-bottom:10px}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-gpay{display:none;width:100%;background:#000;color:#fff;border:none;border-radius:16px;padding:16px 24px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.btn-note{font-size:12px;color:var(--text-light);text-align:center;line-height:1.5}
+
+/* SUCCESS */
+.success-screen{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;background:var(--cream)}
+.success-screen.vis{display:flex}
+.suc-icon{width:72px;height:72px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.suc-icon svg{width:32px;height:32px;color:var(--cream)}
+.suc-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--sage-dark);margin-bottom:12px}
+.suc-body{font-size:14px;color:var(--text-mid);line-height:1.7;max-width:300px;margin-bottom:32px}
+.suc-detail{background:var(--white);border-radius:20px;padding:22px;width:100%;max-width:380px;text-align:left}
+
+/* LOCATION */
+.location-section{background:var(--sage-dark);padding:60px 24px}
+.location-section .section-label{color:var(--sage-mist)}
+.location-section .section-title{color:var(--cream)}
+.map-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin:24px 0;cursor:pointer;transition:background .2s}
+.map-btn:active{background:rgba(255,255,255,.13)}
+.map-btn svg{width:30px;height:30px;color:var(--sage-mist)}
+.map-btn p{font-size:13px;color:var(--sage-mist)}
+.addr-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:22px}
+.addr-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--cream);margin-bottom:6px}
+.addr-street{font-size:14px;color:var(--sage-mist);margin-bottom:16px;line-height:1.5}
+.transport{display:flex;gap:8px;flex-wrap:wrap}
+.tpill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);border-radius:100px;padding:6px 12px;font-size:11px;color:var(--sage-mist)}
+
+/* FAQ */
+.faq-section{background:var(--linen);padding:60px 24px}
+.faq-item{border-bottom:1px solid var(--cream-dark);padding:18px 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;font-weight:500;color:var(--text-dark);line-height:1.4}
+.faq-chevron{flex-shrink:0;width:20px;height:20px;transition:transform .3s}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+.faq-a{font-size:13px;color:var(--text-mid);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .4s ease,padding-top .3s}
+.faq-item.open .faq-a{max-height:220px;padding-top:12px}
+
+/* FOOTER */
+footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px;text-align:center}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;color:var(--cream);margin-bottom:6px}
+.foot-sub{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--sage-light);margin-bottom:24px}
+.foot-links{display:flex;justify-content:center;gap:22px;margin-bottom:24px;flex-wrap:wrap}
+.foot-links a{color:var(--sage-mist);text-decoration:none;font-size:13px}
+.foot-copy{font-size:11px;color:rgba(200,213,196,.45);margin-top:20px}
+.admin-link{display:block;font-size:11px;color:rgba(200,213,196,.3);text-decoration:none;margin-top:10px;letter-spacing:.08em}
+
+/* ADMIN */
+#adminPanel{display:none;position:fixed;inset:0;z-index:200;background:var(--cream);overflow-y:auto;padding:24px}
+#adminPanel.open{display:block}
+.adm-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.adm-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--sage-dark)}
+.adm-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-mid)}
+.adm-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+.adm-stat{background:var(--white);border-radius:14px;padding:16px;text-align:center}
+.adm-num{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--sage-dark);line-height:1}
+.adm-lbl{font-size:10px;color:var(--text-light);margin-top:4px;text-transform:uppercase;letter-spacing:.1em}
+.adm-booking{background:var(--white);border-radius:14px;padding:16px;margin-bottom:10px;border-left:3px solid var(--sage)}
+.adm-bname{font-weight:500;font-size:15px;margin-bottom:4px}
+.adm-bdetail{font-size:12px;color:var(--text-light);line-height:1.6}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--sage-dark);color:var(--cream);padding:13px 24px;border-radius:100px;font-size:13px;font-weight:500;z-index:300;transition:transform .4s cubic-bezier(.175,.885,.32,1.275);white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('cs')" id="btnCs">CZ</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btnEn">EN</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ADMIN -->
+<div id="adminPanel">
+  <div class="adm-hdr">
+    <div class="adm-title">Reservations</div>
+    <button class="adm-close" onclick="closeAdmin()">✕</button>
+  </div>
+  <div class="adm-stats" id="adminStats"></div>
+  <div id="adminBookings"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-bg"></div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <div class="scroll-txt">scroll</div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">ReformLab × Arnoldova Vila × Cecilie Café</p>
+    <h1 class="hero-title">
+      <span>Coffee,</span>
+      <span>Core</span>
+      <span>&amp; Community</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span data-cs>27. června 2025</span><span data-en style="display:none">June 27, 2025</span>
+      </div>
+      <div class="hero-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Brno
+      </div>
+      <div class="hero-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <span data-cs>2 skupiny, max 8</span><span data-en style="display:none">2 groups, max 8</span>
+      </div>
+    </div>
+    <a href="#sessions" class="hero-cta">
+      <span data-cs>Rezervovat místo</span><span data-en style="display:none">Book your spot</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- PARTNERS STRIP -->
+<div class="partners-strip">
+  <span data-cs>Pořádají</span><span data-en style="display:none">Hosted by</span>
+  <div class="partners-dot"></div>
+  <span class="partners-name">Ivy &amp; Ela</span>
+  <div class="partners-dot"></div>
+  <span data-cs>ve spolupráci s</span><span data-en style="display:none">in partnership with</span>
+  <div class="partners-dot"></div>
+  <span class="partners-name">Arnoldova Vila</span>
+  <div class="partners-dot"></div>
+  <span class="partners-name">Cecilie Café</span>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <p class="section-label" data-cs>O akci</p>
+  <p class="section-label" data-en style="display:none">About the event</p>
+  <h2 class="section-title" data-cs>Pilates pod širým nebem,<br><em>káva a nová přátelství</em></h2>
+  <h2 class="section-title" data-en style="display:none">Pilates outdoors,<br><em>coffee &amp; new friends</em></h2>
+  <p style="height:16px"></p>
+  <p class="about-body" data-cs>Přijďte si zacvičit pilates v zahradě historické Arnoldovy vily. 50 minut pohybu, čerstvý vzduch a skvělý drink od Cecilie Café — s lidmi, kteří to mají rádi stejně jako vy.</p>
+  <p class="about-body" data-en style="display:none">Come practice pilates in the garden of the historic Arnoldova Vila. 50 minutes of movement, fresh air and a great drink from Cecilie Café — with people who love it just like you.</p>
+  <div class="features-grid">
+    <div class="feat"><span class="feat-icon">🌿</span><div class="feat-title" data-cs>Zahradní vila</div><div class="feat-title" data-en style="display:none">Garden villa</div><p class="feat-desc">Arnoldova Vila, Brno</p></div>
+    <div class="feat"><span class="feat-icon">☕</span><div class="feat-title" data-cs>Drink v ceně</div><div class="feat-title" data-en style="display:none">Drink included</div><p class="feat-desc">Cecilie Café</p></div>
+    <div class="feat"><span class="feat-icon">🧘</span><div class="feat-title">Mat pilates</div><p class="feat-desc" data-cs>50 min, všechny úrovně</p><p class="feat-desc" data-en style="display:none">50 min, all levels</p></div>
+    <div class="feat"><span class="feat-icon">✨</span><div class="feat-title" data-cs>Malé skupiny</div><div class="feat-title" data-en style="display:none">Small groups</div><p class="feat-desc" data-cs>Max 8 účastníků</p><p class="feat-desc" data-en style="display:none">Max 8 per session</p></div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section class="instructors">
+  <div class="instructors-header">
+    <p class="section-label" data-cs>Vaše instruktorky</p>
+    <p class="section-label" data-en style="display:none">Your instructors</p>
+    <h2 class="section-title" data-cs>Ivy &amp; Ela</h2>
+    <h2 class="section-title" data-en style="display:none">Ivy &amp; Ela</h2>
+  </div>
+
+    <!-- IVY -->
+  <div class="instructor-card">
+    <img class="instr-photo" src="assets/ivy.jpg" alt="Ivy — pilates instructor" style="object-position:center top">
+    <div class="instr-body">
+      <div class="instr-tag">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        English class
+      </div>
+      <div class="instr-name">Ivy</div>
+      <a class="instr-handle" href="https://instagram.com/selflove.journeys" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @selflove.journeys
+      </a>
+      <p class="instr-bio">I discovered Pilates in Asia a few years ago and quickly fell in love with its effect on both body and mind. Trained in STOTT Pilates across various apparatus, I help clients move better, build core strength, improve alignment, and enjoy what their bodies can achieve.</p>
+      <div class="instr-divider"></div>
+      <p class="instr-session" data-cs><strong>10:00 – 10:50</strong> · Anglická lekce · 27. června</p>
+      <p class="instr-session" data-en style="display:none"><strong>10:00 – 10:50 AM</strong> · English class · June 27</p>
+    </div>
+  </div>
+
+  <!-- ELA -->
+  <div class="instructor-card">
+    <img class="instr-photo" src="assets/ela.jpg" alt="Ela — pilates instruktorka" style="object-position:center top">
+    <div class="instr-body">
+      <div class="instr-tag">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        <span data-cs>Česká lekce</span><span data-en style="display:none">Czech class</span>
+      </div>
+      <div class="instr-name">Ela</div>
+      <a class="instr-handle" href="https://instagram.com/pilates.with.ela" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @pilates.with.ela
+      </a>
+      <p class="instr-bio" data-cs>Pohyb je pro mě celoživotní cestou k sobě. Díky vlastní zkušenosti s hypermobilitou vím, jak důležité je najít v těle pevnou oporu. Díky Pilates vnímám pohyb v souvislostech — propojuji celé tělo s logikou a precizností. Kladu důraz na vědomé propojení těla a mysli.</p>
+      <p class="instr-bio" data-en style="display:none">Movement is my lifelong path to self-discovery. Through my own experience with hypermobility, I understand how important it is to find strength and stability in the body. I connect the whole body with logic and precision, emphasising the conscious body-mind connection.</p>
+      <div class="instr-divider"></div>
+      <p class="instr-session" data-cs><strong>13:30 – 14:20</strong> · Česká lekce · 27. června</p>
+      <p class="instr-session" data-en style="display:none"><strong>1:30 – 2:20 PM</strong> · Czech class · June 27</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- SESSIONS -->
+<section class="sessions-section" id="sessions">
+  <p class="section-label" data-cs>Vyberte termín</p>
+  <p class="section-label" data-en style="display:none">Choose your session</p>
+  <h2 class="section-title" data-cs>Termíny lekcí</h2>
+  <h2 class="section-title" data-en style="display:none">Session times</h2>
+  <p class="section-subtitle" data-cs>Každá lekce trvá 50 minut + čas na drink a povídání</p>
+  <p class="section-subtitle" data-en style="display:none">Each session is 50 minutes + time for drinks and chat</p>
+  <div id="sessionsList"></div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+  <p class="section-label" data-cs>Rezervace</p>
+  <p class="section-label" data-en style="display:none">Booking</p>
+  <h2 class="section-title" data-cs>Vaše údaje</h2>
+  <h2 class="section-title" data-en style="display:none">Your details</h2>
+
+  <div class="booking-summary" id="bookingSummary">
+    <div class="sum-label" data-cs>Shrnutí</div>
+    <div class="sum-label" data-en style="display:none">Summary</div>
+    <div class="sum-row"><span class="sum-key" data-cs>Lekce</span><span class="sum-key" data-en style="display:none">Session</span><span class="sum-val" id="sumSession">—</span></div>
+    <div class="sum-row"><span class="sum-key" data-cs>Instruktorka</span><span class="sum-key" data-en style="display:none">Instructor</span><span class="sum-val" id="sumInstructor">—</span></div>
+    <div class="sum-row"><span class="sum-key" data-cs>Místo</span><span class="sum-key" data-en style="display:none">Location</span><span class="sum-val">Arnoldova Vila, Brno</span></div>
+    <div class="sum-div"></div>
+    <div class="sum-row"><span class="sum-total-k" data-cs>Celkem</span><span class="sum-total-k" data-en style="display:none">Total</span><span class="sum-total-v">350 Kč</span></div>
+  </div>
+
+  <div class="form-card">
+    <p class="form-step" data-cs>Krok 1 / 2</p>
+    <p class="form-step" data-en style="display:none">Step 1 / 2</p>
+    <h3 class="form-title" data-cs>Kontaktní údaje</h3>
+    <h3 class="form-title" data-en style="display:none">Contact details</h3>
+    <div class="field">
+      <label data-cs>Jméno a příjmení</label><label data-en style="display:none">Full name</label>
+      <input type="text" id="iName" placeholder="Jana Nováková" autocomplete="name">
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="iEmail" placeholder="jana@email.cz" autocomplete="email">
+    </div>
+    <div class="field">
+      <label data-cs>Telefon (nepovinné)</label><label data-en style="display:none">Phone (optional)</label>
+      <input type="tel" id="iPhone" placeholder="+420 777 123 456" autocomplete="tel">
+    </div>
+  </div>
+
+  <div class="form-card">
+    <p class="form-step" data-cs>Krok 2 / 2</p>
+    <p class="form-step" data-en style="display:none">Step 2 / 2</p>
+    <h3 class="form-title" data-cs>Způsob platby</h3>
+    <h3 class="form-title" data-en style="display:none">Payment method</h3>
+    <div class="pay-options">
+      <div class="pay-opt selected" onclick="selPay('card')" id="pay-card">
+        <div class="pay-radio"><div class="pay-dot"></div></div>
+        <div class="pay-icon">💳</div>
+        <div><div class="pay-name" data-cs>Platba kartou online</div><div class="pay-name" data-en style="display:none">Pay by card online</div><div class="pay-desc">Visa, Mastercard, Google Pay, Apple Pay</div></div>
+      </div>
+      <div class="pay-opt" onclick="selPay('qr')" id="pay-qr">
+        <div class="pay-radio"><div class="pay-dot"></div></div>
+        <div class="pay-icon">📱</div>
+        <div><div class="pay-name" data-cs>QR platba</div><div class="pay-name" data-en style="display:none">QR bank transfer</div><div class="pay-desc" data-cs>Přes mobilní banku</div><div class="pay-desc" data-en style="display:none">Via mobile banking</div></div>
+      </div>
+      <div class="pay-opt" onclick="selPay('cash')" id="pay-cash">
+        <div class="pay-radio"><div class="pay-dot"></div></div>
+        <div class="pay-icon">💵</div>
+        <div><div class="pay-name" data-cs>Hotově na místě</div><div class="pay-name" data-en style="display:none">Cash on site</div><div class="pay-desc" data-cs>Přiveďte přesnou částku</div><div class="pay-desc" data-en style="display:none">Please bring exact change</div></div>
+      </div>
+    </div>
+
+    <div class="stripe-panel vis" id="stripePanel">
+      <div style="height:14px"></div>
+      <div style="background:var(--linen);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div class="stripe-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Secured by Stripe
+          </div>
+          <div class="card-icons">
+            <div class="ci visa">VISA</div>
+            <div class="ci mc">MC</div>
+            <div class="ci" style="background:#1a1a1a;color:#fff;font-size:8px">GPay</div>
+            <div class="ci" style="background:#555;color:#fff;font-size:7px">Pay</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--text-mid);line-height:1.55" data-cs>Po kliknutí na tlačítko budete přesměrováni na bezpečnou platební stránku Stripe. Visa, Mastercard, Google Pay i Apple Pay.</p>
+        <p style="font-size:13px;color:var(--text-mid);line-height:1.55;display:none" data-en>After clicking the button you'll be redirected to Stripe's secure checkout. Visa, Mastercard, Google Pay and Apple Pay accepted.</p>
+      </div>
+    </div>
+
+    <div class="qr-panel" id="qrPanel">
+      <div class="qr-amount">350 Kč</div>
+      <p class="qr-note" data-cs style="margin-bottom:14px">Naskenujte QR kód v mobilní bance a odešlete platbu před lekcí.</p>
+      <p class="qr-note" data-en style="margin-bottom:14px;display:none">Scan the QR code in your mobile banking app and send payment before class.</p>
+      <div class="qr-img"><canvas id="qrCanvas" width="140" height="140"></canvas></div>
+      <p style="font-size:11px;color:var(--text-light);margin-top:10px;line-height:1.6">
+        IBAN: CZ65 0800 0000 1920 0014 5399<br>
+        <span data-cs>VS: bude přiřazen po rezervaci</span><span data-en style="display:none">VS: assigned after booking</span>
+      </p>
+    </div>
+
+    <div class="cash-note" id="cashNote">
+      <span data-cs>💵 Přineste prosím <strong>350 Kč</strong> v hotovosti. Přesná suma usnadní organizaci.</span>
+      <span data-en style="display:none">💵 Please bring <strong>350 Kč</strong> in cash. Exact change is appreciated.</span>
+    </div>
+  </div>
+
+  <div id="submitArea">
+    <button class="btn-primary" onclick="submitBooking()" id="submitBtn" disabled>
+      <span id="submitLabel-cs" data-cs>Zaplatit 350 Kč →</span>
+      <span id="submitLabel-en" data-en style="display:none">Pay 350 Kč →</span>
+    </button>
+    <div id="errorMsg" style="display:none;margin-top:12px;background:#FDF0EC;border-radius:12px;padding:14px 16px;font-size:13px;color:var(--terracotta);text-align:center">
+      <span data-cs>Platba se nezdařila. Zkuste to prosím znovu.</span>
+      <span data-en style="display:none">Payment failed. Please try again.</span>
+    </div>
+    <p class="btn-note" data-cs>Potvrzení obdržíte na zadaný e-mail.</p>
+    <p class="btn-note" data-en style="display:none">Confirmation will be sent to your email.</p>
+  </div>
+</section>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="suc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h2 class="suc-title" data-cs>Rezervace potvrzena!</h2>
+  <h2 class="suc-title" data-en style="display:none">Booking confirmed!</h2>
+  <p class="suc-body" data-cs>Těšíme se na vás! Potvrzení jsme odeslali e-mailem. Nezapomeňte karimatku ☀️</p>
+  <p class="suc-body" data-en style="display:none">We can't wait to see you! A confirmation has been sent to your email. Don't forget your mat ☀️</p>
+  <div class="suc-detail" id="sucDetail"></div>
+</div>
+
+<!-- LOCATION -->
+<section class="location-section">
+  <p class="section-label" data-cs>Kde nás najdete</p>
+  <p class="section-label" data-en style="display:none">Location</p>
+  <h2 class="section-title" data-cs>Arnoldova Vila</h2>
+  <h2 class="section-title" data-en style="display:none">Arnoldova Vila</h2>
+  <div class="map-btn" onclick="openMap()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <p data-cs>Otevřít v Mapách</p><p data-en style="display:none">Open in Maps</p>
+  </div>
+  <div class="addr-card">
+    <div class="addr-name">Arnoldova Vila — Cecilie Café</div>
+    <div class="addr-street">Černopolní 22, 613 00 Brno</div>
+    <div class="transport">
+      <div class="tpill">🚌 <span data-cs>Tram 1, 2</span><span data-en style="display:none">Tram 1, 2</span></div>
+      <div class="tpill">🚗 <span data-cs>Parkování u vily</span><span data-en style="display:none">Parking nearby</span></div>
+      <div class="tpill">🚲 Nextbike</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <p class="section-label" data-cs>Otázky</p>
+  <p class="section-label" data-en style="display:none">FAQ</p>
+  <h2 class="section-title" style="margin-bottom:24px" data-cs>Časté dotazy</h2>
+  <h2 class="section-title" style="margin-bottom:24px" data-en style="display:none">Frequently asked questions</h2>
+  <div id="faqList"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">ReformLab</div>
+  <div class="foot-sub">reformlab.cz</div>
+  <div class="foot-links">
+    <a href="https://instagram.com/reformlab.cz" target="_blank">Instagram</a>
+    <a href="mailto:hello@reformlab.cz">Email</a>
+  </div>
+  <div style="display:flex;justify-content:center;gap:16px;margin-bottom:8px">
+    <a href="https://instagram.com/pilates.with.ela" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@selflove.journeys</a>
+    <span style="color:var(--sage-light);font-size:12px">·</span>
+    <a href="https://instagram.com/pilates.with.ela" target="_blank" style="color:var(--sage-mist);font-size:12px;text-decoration:none">@selflove.journeys</a>
+  </div>
+  <div class="foot-copy" data-cs>© 2025 ReformLab. Všechna práva vyhrazena.</div>
+  <div class="foot-copy" data-en style="display:none">© 2025 ReformLab. All rights reserved.</div>
+  <a class="admin-link" href="#" onclick="openAdmin();return false">⚙ admin</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const SESSIONS = [
+  { id:'s1', time:'10:00', endTime:'10:50', instructor:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce',en:'English class'}, spots:6, max:8 },
+  { id:'s2', time:'13:30', endTime:'14:20', instructor:'Ela', lang:'cs', langLabel:{cs:'Česká lekce',en:'Czech class'}, spots:5, max:8 },
+];
+const PRICE = 350;
+const FAQ_CS = [
+  {q:'Co si mám přinést?', a:'Karimatku na cvičení a pohodlné oblečení. Drink od Cecilie Café je součástí ceny.'},
+  {q:'Je lekce vhodná pro začátečníky?', a:'Ano! Lekce jsou přizpůsobeny všem úrovním. Instruktoři vám pomohou s modifikacemi.'},
+  {q:'Jaký je rozdíl mezi lekcemi?', a:'Lekce ve 10:00 vede Ivy v angličtině (STOTT metoda). Lekci ve 13:30 vede Ela česky s důrazem na body-mind propojení. Obsah je obdobný, liší se jazyk a přístup instruktorky.'},
+  {q:'Co když bude pršet?', a:'V případě nepříznivého počasí přesuneme lekci do prostor vily nebo nabídneme náhradní termín.'},
+  {q:'Mohu zrušit rezervaci?', a:'Rezervaci lze zrušit zdarma nejpozději 24 hodin před lekcí. Pozdější zrušení se nevrací.'},
+];
+const FAQ_EN = [
+  {q:'What should I bring?', a:'A yoga mat and comfortable clothes. A drink from Cecilie Café is included in the price.'},
+  {q:'Is the class suitable for beginners?', a:'Absolutely! Classes are adapted for all levels and modifications will be offered.'},
+  {q:'What's the difference between the two sessions?', a:'The 10:00 AM session is led by Ivy in English using the STOTT method. The 1:30 PM session is led by Ela in Czech with a focus on body-mind connection. The content is similar — it's the language and instructor's approach that differ.'},
+  {q:'What if it rains?', a:'In bad weather we'll move inside the villa or offer you an alternative date.'},
+  {q:'Can I cancel my booking?', a:'Cancellations are free up to 24 hours before the session. Later cancellations are non-refundable.'},
+];
+
+let lang = 'cs';
+let selSession = null;
+let selPayment = 'card';
+let bookings = JSON.parse(localStorage.getItem('rl_bookings') || '[]');
+let spots = {};
+SESSIONS.forEach(s => { spots[s.id] = s.spots; });
+bookings.forEach(b => { if(spots[b.sid]!==undefined) spots[b.sid]=Math.max(0,spots[b.sid]-1); });
+
+// ── URL param handling (Stripe redirect back) ──────────────────────────
+(function handleUrlParams() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('success') === 'true') {
+    const sid = p.get('sid') || 's1';
+    const name = decodeURIComponent(p.get('name') || '');
+    const email = decodeURIComponent(p.get('email') || '');
+    const s = SESSIONS.find(x => x.id === sid) || SESSIONS[0];
+    // save to localStorage so admin panel reflects it
+    const b = {id:Date.now(),name,email,sid,stime:s.time,sinstructor:s.instructor,slang:s.langLabel,payment:'card',at:new Date().toISOString()};
+    bookings.push(b);
+    localStorage.setItem('rl_bookings', JSON.stringify(bookings));
+    spots[sid] = Math.max(0, spots[sid] - 1);
+    window.addEventListener('DOMContentLoaded', () => showSuccessScreen(name, email, s));
+  } else if (p.get('cancel') === 'true') {
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('errorMsg').style.display = 'block';
+      document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+      showToast(lang==='cs' ? 'Platba zrušena. Zkuste to znovu.' : 'Payment cancelled. Try again.');
+    });
+  }
+})();
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btnCs').classList.toggle('active', l==='cs');
+  document.getElementById('btnEn').classList.toggle('active', l==='en');
+  document.querySelectorAll('[data-cs]').forEach(el => el.style.display = l==='cs'?'':'none');
+  document.querySelectorAll('[data-en]').forEach(el => el.style.display = l==='en'?'':'none');
+  renderSessions(); renderFAQ(); updateSummary();
+}
+
+function renderSessions() {
+  const c = document.getElementById('sessionsList');
+  c.innerHTML = SESSIONS.map(s => {
+    const sp = spots[s.id];
+    const full = sp===0, few = sp>0&&sp<=2;
+    const sel = selSession===s.id;
+    const spotsT = full
+      ? (lang==='cs'?'Obsazeno':'Sold out')
+      : few ? (lang==='cs'?`Zbývají ${sp} místa`:`${sp} spots left`)
+             : (lang==='cs'?`${sp} volných míst`:`${sp} spots available`);
+    return `<div class="session-card${sel?' selected':''}${full?' full':''}"
+        style="${full?'opacity:.5;cursor:not-allowed':''}"
+        onclick="${full?'':` selSess('${s.id}')`}">
+      <div class="sess-row">
+        <div class="sess-time">${s.time}</div>
+        <div class="sess-info">
+          <div class="sess-lang">${s.langLabel[lang]}</div>
+          <div class="sess-instructor">${lang==='cs'?'s ':'with '}${s.instructor}</div>
+          <div class="sess-spots"><span class="spot-dot${few?' few':''}"></span>${spotsT}</div>
+        </div>
+        <div class="sess-right">
+          <div class="sess-price">${PRICE} Kč<span>${lang==='cs'?'/ osobu':'/ person'}</span></div>
+        </div>
+        <div class="sess-check">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selSess(id) {
+  selSession = id;
+  renderSessions(); updateSummary(); updateBtn();
+  document.getElementById('bookingSummary').style.display = 'block';
+  setTimeout(()=>document.getElementById('booking').scrollIntoView({behavior:'smooth',block:'start'}),120);
+}
+
+function updateSummary() {
+  if(!selSession) return;
+  const s = SESSIONS.find(x=>x.id===selSession);
+  document.getElementById('sumSession').textContent = `${s.time}–${s.endTime} · 27. 6.`;
+  document.getElementById('sumInstructor').textContent = s.instructor;
+}
+
+function selPay(m) {
+  selPayment = m;
+  ['card','qr','cash'].forEach(x=>document.getElementById(`pay-${x}`).classList.toggle('selected',x===m));
+  document.getElementById('stripePanel').classList.toggle('vis', m==='card');
+  document.getElementById('qrPanel').classList.toggle('vis', m==='qr');
+  document.getElementById('cashNote').style.display = m==='cash'?'block':'none';
+  updateSubmitLabel();
+  if(m==='qr') genQR();
+}
+
+function updateSubmitLabel() {
+  const cs = document.getElementById('submitLabel-cs');
+  const en = document.getElementById('submitLabel-en');
+  if (selPayment === 'card') {
+    cs.textContent = 'Zaplatit 350 Kč →';
+    en.textContent = 'Pay 350 Kč →';
+  } else {
+    cs.textContent = 'Potvrdit rezervaci';
+    en.textContent = 'Confirm booking';
+  }
+}
+
+function genQR() {
+  const canvas = document.getElementById('qrCanvas');
+  const qrData = 'SPD*1.0*ACC:CZ6508000000192000145399*AM:350.00*CC:CZK*MSG:Coffee Core Community*X-VS:20250627';
+  if(window.QRCode){
+    try { new QRCode(canvas,{text:qrData,width:140,height:140,colorDark:'#2E3D2E',colorLight:'#FDFCF9',correctLevel:QRCode.CorrectLevel.M}); }
+    catch(e){}
+  }
+}
+
+function updateBtn() {
+  const name = document.getElementById('iName').value.trim();
+  const email = document.getElementById('iEmail').value.trim();
+  const ok = selSession && name.length>1 && email.includes('@');
+  document.getElementById('submitBtn').disabled = !ok;
+  updateSubmitLabel();
+}
+
+document.getElementById('iName').addEventListener('input', updateBtn);
+document.getElementById('iEmail').addEventListener('input', updateBtn);
+
+async function submitBooking() {
+  const name = document.getElementById('iName').value.trim();
+  const email = document.getElementById('iEmail').value.trim();
+  const phone = document.getElementById('iPhone').value.trim();
+  if(!selSession||!name||!email) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  document.getElementById('errorMsg').style.display = 'none';
+
+  if (selPayment === 'card') {
+    // Stripe Checkout redirect
+    btn.innerHTML = lang==='cs' ? 'Přesměrovávám…' : 'Redirecting…';
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({sessionId:selSession, name, email, phone, lang}),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || 'No URL returned');
+      }
+    } catch(err) {
+      console.error(err);
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false;
+      updateSubmitLabel();
+    }
+  } else {
+    // Cash / QR — call reserve API
+    btn.innerHTML = lang==='cs' ? 'Odesílám…' : 'Sending…';
+    try {
+      const res = await fetch('/api/reserve', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({sessionId:selSession, name, email, phone, paymentMethod:selPayment}),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        const s = SESSIONS.find(x=>x.id===selSession);
+        const b = {id:Date.now(),name,email,sid:selSession,stime:s.time,sinstructor:s.instructor,slang:s.langLabel,payment:selPayment,at:new Date().toISOString()};
+        bookings.push(b);
+        localStorage.setItem('rl_bookings',JSON.stringify(bookings));
+        spots[selSession]=Math.max(0,spots[selSession]-1);
+        showSuccessScreen(name, email, s);
+      } else {
+        throw new Error(data.error || 'Reserve failed');
+      }
+    } catch(err) {
+      console.error(err);
+      document.getElementById('errorMsg').style.display = 'block';
+      btn.disabled = false;
+      updateSubmitLabel();
+    }
+  }
+}
+
+function showSuccessScreen(name, email, s) {
+  document.getElementById('booking').style.display='none';
+  const screen = document.getElementById('successScreen');
+  screen.classList.add('vis');
+  document.getElementById('sucDetail').innerHTML=`
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-light);margin-bottom:14px">${lang==='cs'?'Detaily':'Details'}</div>
+    ${[
+      [lang==='cs'?'Jméno':'Name', name],
+      ['Email', `<span style="font-size:12px">${email}</span>`],
+      [lang==='cs'?'Lekce':'Session', `${s.time} — ${s.langLabel[lang]}`],
+      [lang==='cs'?'Instruktorka':'Instructor', s.instructor],
+    ].map(([k,v])=>`<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:var(--text-light)">${k}</span><span style="font-weight:500">${v}</span></div>`).join('')}
+    <div style="height:1px;background:var(--cream-dark);margin:12px 0"></div>
+    <div style="display:flex;justify-content:space-between">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--sage-dark)">${lang==='cs'?'Celkem':'Total'}</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--sage-dark)">350 Kč</span>
+    </div>`;
+  window.scrollTo({top:screen.offsetTop-20,behavior:'smooth'});
+  showToast(lang==='cs'?'✓ Rezervace potvrzena!':'✓ Booking confirmed!');
+}
+
+function renderFAQ() {
+  const faqs = lang==='cs'?FAQ_CS:FAQ_EN;
+  document.getElementById('faqList').innerHTML = faqs.map((f,i)=>`
+    <div class="faq-item" id="faq-${i}" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span>${f.q}</span>
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">${f.a}</div>
+    </div>`).join('');
+}
+
+const ADMIN_PASS = 'reformlab2025';
+function openAdmin(){
+  const p=prompt('Password:');
+  if(p!==ADMIN_PASS){alert('Incorrect');return;}
+  const bks=JSON.parse(localStorage.getItem('rl_bookings')||'[]');
+  document.getElementById('adminStats').innerHTML=`
+    <div class="adm-stat"><div class="adm-num">${bks.length}</div><div class="adm-lbl">Bookings</div></div>
+    <div class="adm-stat"><div class="adm-num">${bks.length*PRICE}</div><div class="adm-lbl">Kč</div></div>
+    <div class="adm-stat"><div class="adm-num">${SESSIONS.reduce((a,s)=>a+(s.max-spots[s.id]),0)}</div><div class="adm-lbl">Sold</div></div>`;
+  document.getElementById('adminBookings').innerHTML = bks.length===0
+    ? '<p style="text-align:center;color:var(--text-light);padding:32px 0">No bookings yet</p>'
+    : [...bks].reverse().map(b=>`<div class="adm-booking"><div class="adm-bname">${b.name}</div><div class="adm-bdetail">${b.email}<br>${b.stime} · ${b.slang?.cs||''} · ${b.sinstructor}<br>Platba: ${b.payment}<br><span style="color:var(--sage-light)">${new Date(b.at).toLocaleString('cs')}</span></div></div>`).join('');
+  document.getElementById('adminPanel').classList.add('open');
+}
+function closeAdmin(){ document.getElementById('adminPanel').classList.remove('open'); }
+function openMap(){ window.open('https://maps.google.com/?q=Černopolní+22+Brno','_blank'); }
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
+
+renderSessions(); renderFAQ(); selPay('card'); setLang('cs');
+</script>
+</body>
+</html>

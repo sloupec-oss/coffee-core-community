@@ -680,15 +680,24 @@ async function submitBooking() {
   btn.disabled = true;
   document.getElementById('errorMsg').style.display = 'none';
 
+  const originalBtnHTML = btn.innerHTML;
+  function resetBtn() {
+    btn.disabled = false;
+    btn.innerHTML = originalBtnHTML;
+  }
+
   if (selPayment === 'card') {
-    // Stripe Checkout redirect
-    btn.innerHTML = lang==='cs' ? 'Přesměrovávám…' : 'Redirecting…';
+    btn.innerHTML = `<span>${lang==='cs' ? 'Přesměrovávám…' : 'Redirecting…'}</span>`;
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({sessionId:selSession, name, email, phone, lang}),
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
@@ -698,12 +707,10 @@ async function submitBooking() {
     } catch(err) {
       console.error(err);
       document.getElementById('errorMsg').style.display = 'block';
-      btn.disabled = false;
-      updateSubmitLabel();
+      resetBtn();
     }
   } else {
-    // Cash / QR — call reserve API
-    btn.innerHTML = lang==='cs' ? 'Odesílám…' : 'Sending…';
+    btn.innerHTML = `<span>${lang==='cs' ? 'Odesílám…' : 'Sending…'}</span>`;
     try {
       const res = await fetch('/api/reserve', {
         method: 'POST',
@@ -724,8 +731,7 @@ async function submitBooking() {
     } catch(err) {
       console.error(err);
       document.getElementById('errorMsg').style.display = 'block';
-      btn.disabled = false;
-      updateSubmitLabel();
+      resetBtn();
     }
   }
 }

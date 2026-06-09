@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+
 const SESSIONS = {
   s1: { time: '10:30–11:30', instructor: 'Ivy', langLabel: 'Anglická / English class' },
   s2: { time: '14:00–15:00', instructor: 'Ela', langLabel: 'Česká / Czech class' },
@@ -19,7 +21,7 @@ module.exports = async function handler(req, res) {
   const isEn = lang === 'en';
 
   await Promise.all([
-    notifyOrganizer({ bookingId, name, email, phone, sess, paymentMethod }),
+    notifyOrganizer({ bookingId, name, email, phone, sess }),
     notifyCustomer({ bookingId, name, email, sess, isEn }),
   ]);
 
@@ -30,37 +32,18 @@ module.exports = async function handler(req, res) {
   });
 };
 
-async function sendEmail({ to, subject, text }) {
-  if (!process.env.RESEND_API_KEY) {
-    console.log('EMAIL (no Resend key):', { to, subject });
-    return;
-  }
-  try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Coffee Core Community <onboarding@resend.dev>',
-        to: [to],
-        subject,
-        text,
-      }),
-    });
-    if (!r.ok) {
-      const err = await r.text();
-      console.error(`Resend error ${r.status} → ${to}:`, err);
-    } else {
-      console.log(`Email sent → ${to}`);
-    }
-  } catch (e) {
-    console.error('Resend fetch error:', e.message);
-  }
+function getTransporter() {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.ORGANIZER_EMAIL,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
 }
 
 async function notifyCustomer({ bookingId, name, email, sess, isEn }) {
+  const transporter = getTransporter();
   const subject = isEn
     ? `Booking confirmed — Coffee, Core & Community ${sess.time}`
     : `Rezervace potvrzena — Coffee, Core & Community ${sess.time}`;
@@ -93,13 +76,24 @@ Adresa: Drobného 299/26, 602 00 Brno-sever-Černá Pole
 Těšíme se,
 Ivy & Ela`;
 
-  await sendEmail({ to: email, subject, text });
+  try {
+    await transporter.sendMail({
+      from: `Coffee Core Community <${process.env.ORGANIZER_EMAIL}>`,
+      to: email,
+      subject,
+      text,
+    });
+    console.log(`Customer email sent → ${email}`);
+  } catch (e) {
+    console.error('Customer email error:', e.message);
+  }
 }
 
-async function notifyOrganizer({ bookingId, name, email, phone, sess, paymentMethod }) {
+async function notifyOrganizer({ bookingId, name, email, phone, sess }) {
   const organizer = process.env.ORGANIZER_EMAIL;
   if (!organizer) return;
 
+  const transporter = getTransporter();
   const subject = `Nová rezervace CCC — ${sess.time} (${sess.instructor})`;
   const text = `Nová rezervace bez online platby:
 
@@ -114,5 +108,15 @@ Rezervace ID: ${bookingId}
 
 Zkontrolujte platbu před lekcí.`;
 
-  await sendEmail({ to: organizer, subject, text });
+  try {
+    await transporter.sendMail({
+      from: `Coffee Core Community <${organizer}>`,
+      to: organizer,
+      subject,
+      text,
+    });
+    console.log(`Organizer email sent → ${organizer}`);
+  } catch (e) {
+    console.error('Organizer email error:', e.message);
+  }
 }

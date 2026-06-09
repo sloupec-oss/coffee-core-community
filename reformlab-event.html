@@ -493,7 +493,7 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
   </div>
   <div class="addr-card">
     <div class="addr-name">Arnoldova Vila — Cecilie Café</div>
-    <div class="addr-street">Černopolní 22, 613 00 Brno</div>
+    <div class="addr-street">Drobného 299/26, 602 00 Brno-sever-Černá Pole</div>
     <div class="transport">
       <div class="tpill">🚌 <span data-cs>Tram 1, 2</span><span data-en style="display:none">Tram 1, 2</span></div>
       <div class="tpill">🚗 <span data-cs>Parkování u vily</span><span data-en style="display:none">Parking nearby</span></div>
@@ -770,7 +770,7 @@ function openAdmin(){
   document.getElementById('adminPanel').classList.add('open');
 }
 function closeAdmin(){ document.getElementById('adminPanel').classList.remove('open'); }
-function openMap(){ window.open('https://maps.google.com/?q=Černopolní+22+Brno','_blank'); }
+function openMap(){ window.open('https://maps.google.com/?q=Drobného+299/26+Brno','_blank'); }
 function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
 
 renderSessions(); renderFAQ(); selPay('card'); setLang('cs');

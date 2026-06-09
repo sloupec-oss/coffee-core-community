@@ -150,11 +150,6 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .ci{width:32px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.04em}
 .ci.visa{background:#1A1F71;color:#fff}
 .ci.mc{background:#EB001B;color:#fff}
-.qr-panel{display:none;background:var(--linen);border-radius:16px;padding:22px;margin-top:14px;text-align:center}
-.qr-panel.vis{display:block}
-.qr-amount{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--sage-dark);margin-bottom:10px}
-.qr-img{width:150px;height:150px;background:#fff;border-radius:12px;margin:0 auto 12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.qr-note{font-size:12px;color:var(--text-light);line-height:1.6}
 .cash-note{display:none;background:var(--linen);border-radius:14px;padding:16px;margin-top:14px;font-size:13px;color:var(--text-mid);line-height:1.6}
 .btn-primary{width:100%;background:var(--sage-dark);color:var(--cream);border:none;border-radius:16px;padding:18px 24px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .25s,transform .15s;margin-bottom:10px}
 .btn-primary:active{transform:scale(.98)}
@@ -426,11 +421,7 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
         <div class="pay-icon">💳</div>
         <div><div class="pay-name" data-cs>Platba kartou online</div><div class="pay-name" data-en style="display:none">Pay by card online</div><div class="pay-desc">Visa, Mastercard, Google Pay, Apple Pay</div></div>
       </div>
-      <div class="pay-opt" onclick="selPay('qr')" id="pay-qr">
-        <div class="pay-radio"><div class="pay-dot"></div></div>
-        <div class="pay-icon">📱</div>
-        <div><div class="pay-name" data-cs>QR platba</div><div class="pay-name" data-en style="display:none">QR bank transfer</div><div class="pay-desc" data-cs>Přes mobilní banku</div><div class="pay-desc" data-en style="display:none">Via mobile banking</div></div>
-      </div>
+
       <div class="pay-opt" onclick="selPay('cash')" id="pay-cash">
         <div class="pay-radio"><div class="pay-dot"></div></div>
         <div class="pay-icon">💵</div>
@@ -458,16 +449,6 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
       </div>
     </div>
 
-    <div class="qr-panel" id="qrPanel">
-      <div class="qr-amount">350 Kč</div>
-      <p class="qr-note" data-cs style="margin-bottom:14px">Naskenujte QR kód v mobilní bance a odešlete platbu před lekcí.</p>
-      <p class="qr-note" data-en style="margin-bottom:14px;display:none">Scan the QR code in your mobile banking app and send payment before class.</p>
-      <div class="qr-img"><canvas id="qrCanvas" width="140" height="140"></canvas></div>
-      <p style="font-size:11px;color:var(--text-light);margin-top:10px;line-height:1.6">
-        IBAN: CZ65 0800 0000 1920 0014 5399<br>
-        <span data-cs>VS: bude přiřazen po rezervaci</span><span data-en style="display:none">VS: assigned after booking</span>
-      </p>
-    </div>
 
     <div class="cash-note" id="cashNote">
       <span data-cs>💵 Přineste prosím <strong>350 Kč</strong> v hotovosti. Přesná suma usnadní organizaci.</span>
@@ -543,7 +524,6 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
   <a class="admin-link" href="#" onclick="openAdmin();return false">⚙ admin</a>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const SESSIONS = [
   { id:'s1', time:'10:30', endTime:'11:30', instructor:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce',en:'English class'}, spots:12, max:12 },
@@ -554,14 +534,14 @@ const FAQ_CS = [
   {q:'Co si mám přinést?', a:'Karimatku na cvičení a pohodlné oblečení. Drink od Cecilie Café je součástí ceny.'},
   {q:'Je lekce vhodná pro začátečníky?', a:'Ano! Lekce jsou přizpůsobeny všem úrovním. Instruktoři vám pomohou s modifikacemi.'},
   {q:'Jaký je rozdíl mezi lekcemi?', a:'Lekce ve 10:30 vede Ivy v angličtině (STOTT metoda). Lekci ve 14:00 vede Ela česky s důrazem na body-mind propojení. Obsah je obdobný, liší se jazyk a přístup instruktorky.'},
-  {q:'Co když bude pršet?', a:'Pokud se akce nebude konat: nabídneme jiný termín nebo vrátíme platbu.'},
+  {q:'Co když bude pršet?', a:'Dáme vám vědět, že se akce nekoná, a nabídneme jiný termín nebo vrátíme platbu.'},
   {q:'Mohu zrušit rezervaci?', a:'Rezervaci lze zrušit zdarma nejpozději 24 hodin před lekcí. Pozdější zrušení se nevrací.'},
 ];
 const FAQ_EN = [
   {q:'What should I bring?', a:'A yoga mat and comfortable clothes. A drink from Cecilie Café is included in the price.'},
   {q:'Is the class suitable for beginners?', a:'Absolutely! Classes are adapted for all levels and modifications will be offered.'},
   {q:'What\'s the difference between the two sessions?', a:'The 10:30 AM session is led by Ivy in English using the STOTT method. The 2:00 PM session is led by Ela in Czech with a focus on body-mind connection. The content is similar — it\'s the language and instructor\'s approach that differ.'},
-  {q:'What if it rains?', a:'If the event is cancelled: we\'ll offer an alternative date or a full refund.'},
+  {q:'What if it rains?', a:'We\'ll let you know if the event is cancelled and offer you an alternative date or a full refund.'},
   {q:'Can I cancel my booking?', a:'Cancellations are free up to 24 hours before the session. Later cancellations are non-refundable.'},
 ];
 
@@ -652,12 +632,10 @@ function updateSummary() {
 
 function selPay(m) {
   selPayment = m;
-  ['card','qr','cash'].forEach(x=>document.getElementById(`pay-${x}`).classList.toggle('selected',x===m));
+  ['card','cash'].forEach(x=>document.getElementById(`pay-${x}`).classList.toggle('selected',x===m));
   document.getElementById('stripePanel').classList.toggle('vis', m==='card');
-  document.getElementById('qrPanel').classList.toggle('vis', m==='qr');
   document.getElementById('cashNote').style.display = m==='cash'?'block':'none';
   updateSubmitLabel();
-  if(m==='qr') genQR();
 }
 
 function updateSubmitLabel() {
@@ -672,14 +650,6 @@ function updateSubmitLabel() {
   }
 }
 
-function genQR() {
-  const canvas = document.getElementById('qrCanvas');
-  const qrData = 'SPD*1.0*ACC:CZ6508000000192000145399*AM:350.00*CC:CZK*MSG:Coffee Core Community*X-VS:20250627';
-  if(window.QRCode){
-    try { new QRCode(canvas,{text:qrData,width:140,height:140,colorDark:'#2E3D2E',colorLight:'#FDFCF9',correctLevel:QRCode.CorrectLevel.M}); }
-    catch(e){}
-  }
-}
 
 function updateBtn() {
   const name = document.getElementById('iName').value.trim();

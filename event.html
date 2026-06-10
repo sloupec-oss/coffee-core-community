@@ -170,10 +170,11 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .location-section{background:var(--sage-dark);padding:60px 24px}
 .location-section .section-label{color:var(--sage-mist)}
 .location-section .section-title{color:var(--cream)}
-.map-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin:24px 0;cursor:pointer;transition:background .2s}
+.map-embed{width:100%;height:200px;border-radius:20px;border:none;margin:24px 0;display:block;opacity:.92}
+.map-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:11px 20px;cursor:pointer;transition:background .2s;text-decoration:none;margin-bottom:24px}
 .map-btn:active{background:rgba(255,255,255,.13)}
-.map-btn svg{width:30px;height:30px;color:var(--sage-mist)}
-.map-btn p{font-size:13px;color:var(--sage-mist)}
+.map-btn svg{width:16px;height:16px;color:var(--sage-mist)}
+.map-btn p{font-size:13px;color:var(--sage-mist);margin:0}
 .addr-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:22px}
 .addr-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--cream);margin-bottom:6px}
 .addr-street{font-size:14px;color:var(--sage-mist);margin-bottom:16px;line-height:1.5}
@@ -508,10 +509,17 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
   <p class="section-label" data-en style="display:none">Location</p>
   <h2 class="section-title" data-cs>Arnoldova Vila</h2>
   <h2 class="section-title" data-en style="display:none">Arnoldova Vila</h2>
-  <div class="map-btn" onclick="openMap()">
+  <iframe
+    class="map-embed"
+    src="https://maps.google.com/maps?q=Drobného+299%2F26%2C+602+00+Brno&output=embed&z=16"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+  <a class="map-btn" onclick="openMap(); return false;" href="#">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
     <p data-cs>Otevřít v Mapách</p><p data-en style="display:none">Open in Maps</p>
-  </div>
+  </a>
   <div class="addr-card">
     <div class="addr-name">Arnoldova Vila — Cecilie Café</div>
     <div class="addr-street">Drobného 299/26, 602 00 Brno-sever-Černá Pole</div>

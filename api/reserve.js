@@ -95,8 +95,8 @@ Detaily lekce:
 🔖 ID rezervace: ${bookingId}
 
 Co si přinést:
-Pohodlné oblečení a karimatku na cvičení. Drink od Cecilie Café je součástí ceny 🌿
-Nemáš karimatku? Napiš nám předem na pilatesarnoldovavila@gmail.com a rádi ti ji zapůjčíme.
+Pohodlné oblečení a podložku na cvičení na cvičení. Drink od Cecilie Café je součástí ceny 🌿
+Nemáš podložku na cvičení? Napiš nám předem na pilatesarnoldovavila@gmail.com a rádi ti ji zapůjčíme.
 
 Zrušení rezervace:
 Rezervaci lze zrušit zdarma nejpozději 24 hodin předem. Platbu vrátíme v plné výši.

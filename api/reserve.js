@@ -29,7 +29,7 @@ module.exports = async function handler(req, res) {
 
   const sess = SESSIONS[sessionId];
   const bookingId = `CCC-${Date.now()}`;
-  const isEn = lang === 'en';
+  const isEn = sessionId === 's1'; // Ivy's class is always English, Ela's always Czech
 
   await notifyCustomer({ bookingId, name, email, sess, isEn });
   await notifyOrganizer({ bookingId, name, email, phone, sess });

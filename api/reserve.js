@@ -55,36 +55,56 @@ function getTransporter() {
 async function notifyCustomer({ bookingId, name, email, sess, isEn }) {
   const transporter = getTransporter();
   const subject = isEn
-    ? `Booking confirmed — Core, Coffee & Community ${sess.time}`
-    : `Rezervace potvrzena — Core, Coffee & Community ${sess.time}`;
+    ? `Booking confirmed — Core, Coffee & Community`
+    : `Rezervace potvrzena — Core, Coffee & Community`;
 
   const text = isEn
     ? `Hi ${name},
 
-Your spot is reserved! See you on June 27 at Arnoldova Vila.
+your spot is confirmed! 🌿 We can't wait to see you.
 
-Session: ${sess.time} — ${sess.langLabel}
-Instructor: ${sess.instructor}
-Payment: Cash on site (please bring 350 Kč)
-Booking ID: ${bookingId}
+Session details:
+📅 Saturday, June 27, 2026
+⏰ ${sess.time} — ${sess.langLabel}
+👩‍🏫 Instructor: ${sess.instructor}
+📍 Arnoldova Vila, Drobného 299/26, Brno
+💳 Payment: Cash on site — please bring 350 Kč
+🔖 Booking ID: ${bookingId}
 
-Address: Drobného 299/26, 602 00 Brno-sever-Černá Pole
+What to bring:
+Comfortable clothes and a yoga mat. A drink from Cecilie Café is included 🌿
+No mat? No problem — just email us at pilatesarnoldovavila@gmail.com and we'll sort one out for you.
 
-See you there,
-Ivy & Ela`
+Cancellations:
+Free cancellation up to 24 hours before the session. Full refund guaranteed.
+Email us at: pilatesarnoldovavila@gmail.com
+
+See you soon!
+Ivy & Ela
+Coffee, Core & Community — Arnoldova Vila`
     : `Ahoj ${name},
 
-Tvoje místo je rezervované! Těšíme se na tebe 27. června v Arnoldově vile.
+tvoje místo je rezervované! 🌿 Těšíme se na tebe.
 
-Lekce: ${sess.time} — ${sess.langLabel}
-Instruktorka: ${sess.instructor}
-Platba: Hotově na místě (přines prosím 350 Kč)
-Rezervace ID: ${bookingId}
+Detaily lekce:
+📅 Sobota 27. června 2026
+⏰ ${sess.time} — ${sess.langLabel}
+👩‍🏫 Instruktorka: ${sess.instructor}
+📍 Arnoldova Vila, Drobného 299/26, Brno
+💳 Platba: Hotově na místě — přines prosím 350 Kč
+🔖 ID rezervace: ${bookingId}
 
-Adresa: Drobného 299/26, 602 00 Brno-sever-Černá Pole
+Co si přinést:
+Pohodlné oblečení a karimatku na cvičení. Drink od Cecilie Café je součástí ceny 🌿
+Nemáš karimatku? Napiš nám předem na pilatesarnoldovavila@gmail.com a rádi ti ji zapůjčíme.
 
-Těšíme se,
-Ivy & Ela`;
+Zrušení rezervace:
+Rezervaci lze zrušit zdarma nejpozději 24 hodin předem. Platbu vrátíme v plné výši.
+Piš na: pilatesarnoldovavila@gmail.com
+
+Těšíme se na tebe!
+Ivy & Ela
+Coffee, Core & Community — Arnoldova Vila`;
 
   try {
     await transporter.sendMail({

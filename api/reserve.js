@@ -13,7 +13,7 @@ async function decrementSpot(sessionId) {
 
 const SESSIONS = {
   s1: { time: '10:30–11:30', instructor: 'Ivy', langLabel: 'Anglická / English class' },
-  s2: { time: '14:00–15:00', instructor: 'Ela', langLabel: 'Česká / Czech class' },
+  s2: { time: '16:00–17:00', instructor: 'Ela', langLabel: 'Česká / Czech class' },
 };
 
 module.exports = async function handler(req, res) {

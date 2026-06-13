@@ -8,13 +8,13 @@ const SESSIONS = {
     langEn: 'Czech class',
   },
   s1: {
-    time: '10:30–11:30',
+    time: '10:30–11:20',
     instructor: 'Ivy',
     langCs: 'Anglická lekce',
     langEn: 'English class',
   },
   s2: {
-    time: '16:00–17:00',
+    time: '16:00–16:50',
     instructor: 'Ela',
     langCs: 'Česká lekce',
     langEn: 'Czech class',

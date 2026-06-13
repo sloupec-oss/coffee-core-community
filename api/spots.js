@@ -19,15 +19,18 @@ module.exports = async function handler(req, res) {
   await redis([
     ['SET', 'spots:s1', String(MAX_SPOTS), 'NX'],
     ['SET', 'spots:s2', String(MAX_SPOTS), 'NX'],
+    ['SET', 'spots:s3', String(MAX_SPOTS), 'NX'],
   ]);
 
   const results = await redis([
     ['GET', 'spots:s1'],
     ['GET', 'spots:s2'],
+    ['GET', 'spots:s3'],
   ]);
 
   res.status(200).json({
     s1: Math.max(0, parseInt(results[0].result ?? MAX_SPOTS)),
     s2: Math.max(0, parseInt(results[1].result ?? MAX_SPOTS)),
+    s3: Math.max(0, parseInt(results[2].result ?? MAX_SPOTS)),
   });
 };

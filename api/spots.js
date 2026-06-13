@@ -28,9 +28,21 @@ module.exports = async function handler(req, res) {
     ['GET', 'spots:s3'],
   ]);
 
+  const parse = (val) => parseInt(val ?? MAX_SPOTS);
+  const s1 = parse(results[0].result);
+  const s2 = parse(results[1].result);
+  const s3 = parse(results[2].result);
+
+  // Fix corrupted keys (DECR on non-existent key produces negative values)
+  const resets = [];
+  if (s1 < 0) resets.push(['SET', 'spots:s1', String(MAX_SPOTS)]);
+  if (s2 < 0) resets.push(['SET', 'spots:s2', String(MAX_SPOTS)]);
+  if (s3 < 0) resets.push(['SET', 'spots:s3', String(MAX_SPOTS)]);
+  if (resets.length) await redis(resets);
+
   res.status(200).json({
-    s1: Math.max(0, parseInt(results[0].result ?? MAX_SPOTS)),
-    s2: Math.max(0, parseInt(results[1].result ?? MAX_SPOTS)),
-    s3: Math.max(0, parseInt(results[2].result ?? MAX_SPOTS)),
+    s1: s1 < 0 ? MAX_SPOTS : Math.max(0, s1),
+    s2: s2 < 0 ? MAX_SPOTS : Math.max(0, s2),
+    s3: s3 < 0 ? MAX_SPOTS : Math.max(0, s3),
   });
 };

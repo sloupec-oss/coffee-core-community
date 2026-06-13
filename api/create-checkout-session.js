@@ -1,6 +1,12 @@
 const Stripe = require('stripe');
 
 const SESSIONS = {
+  s3: {
+    time: '9:00–9:50',
+    instructor: 'Ela',
+    langCs: 'Česká lekce',
+    langEn: 'Czech class',
+  },
   s1: {
     time: '10:30–11:30',
     instructor: 'Ivy',

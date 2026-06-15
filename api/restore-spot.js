@@ -16,7 +16,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
 
   const { sessionId } = req.body;
-  if (!sessionId || !['s1', 's2', 's3'].includes(sessionId)) {
+  if (!sessionId || !['s1', 's3'].includes(sessionId)) {
     res.status(400).json({ error: 'Invalid sessionId' }); return;
   }
 

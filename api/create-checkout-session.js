@@ -13,12 +13,6 @@ const SESSIONS = {
     langCs: 'Anglická lekce',
     langEn: 'English class',
   },
-  s2: {
-    time: '16:00–16:50',
-    instructor: 'Ela',
-    langCs: 'Česká lekce',
-    langEn: 'Czech class',
-  },
 };
 
 module.exports = async function handler(req, res) {

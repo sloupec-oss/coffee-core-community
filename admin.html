@@ -99,9 +99,8 @@ const ADMIN_PASS = 'arnoldova25';
 const SESSIONS = [
   { id: 's3', time: '9:00–9:50',   instructor: 'Ela', label: 'Česká lekce' },
   { id: 's1', time: '10:30–11:20', instructor: 'Ivy', label: 'Anglická lekce' },
-  { id: 's2', time: '16:00–16:50', instructor: 'Ela', label: 'Česká lekce' },
 ];
-let spots = { s1: '?', s2: '?', s3: '?' };
+let spots = { s1: '?', s3: '?' };
 
 function login() {
   const val = document.getElementById('passInput').value;
@@ -132,7 +131,6 @@ async function loadSpots() {
     const r = await fetch('/api/spots');
     const d = await r.json();
     spots.s1 = d.s1;
-    spots.s2 = d.s2;
     spots.s3 = d.s3;
   } catch(e) {}
   renderSpots();

@@ -347,6 +347,7 @@ function renderEvents() {
           ? (lang==='cs'?`Poslední ${totalSpots} místa`:`${totalSpots} spots left`)
           : (lang==='cs'?'Volná místa':'Available');
     const badgeClass = soon ? 'soon' : soldOut ? 'sold-out' : '';
+    const dotClass = soldOut ? 'none' : few ? 'few' : '';
     const sessHtml = ev.sessions.map(s => `
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--sage-dark);min-width:70px">${s.time}</span>

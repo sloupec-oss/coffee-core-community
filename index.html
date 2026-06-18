@@ -298,6 +298,24 @@ const EVENTS = [
     price: 350,
     status: 'open',
     file: 'event.html',
+    img: 'assets/tile%20event.png',
+  },
+  {
+    id: 'event-2026-07-11',
+    dateCs: '11. července 2026',
+    dateEn: 'July 11, 2026',
+    titleCs: 'Core, Coffee & Community',
+    titleEn: 'Core, Coffee & Community',
+    locationCs: 'v zahradě Arnoldovy vily',
+    locationEn: 'in the garden of Arnoldova Vila',
+    sessions: [
+      { time:'9:00–9:50',   instructor:'Ivy', langCs:'Anglická lekce', langEn:'English class', spots:12 },
+      { time:'10:30–11:20', instructor:'Ela', langCs:'Česká lekce',   langEn:'Czech class',   spots:12 },
+    ],
+    price: 350,
+    status: 'open',
+    file: 'event.html',
+    img: 'assets/tile-event-july.jpg',
   },
 ];
 
@@ -331,7 +349,7 @@ function renderEvents() {
         <span style="font-size:12px;color:var(--text-light)">${lang==='cs'?'s ':'with '}${s.instructor}</span>
       </div>`).join('');
     return `<a class="event-card" href="${ev.file}">
-      <img class="event-card-img" src="assets/tile%20event.png" alt="${ev.titleCs}" onerror="this.style.display='none'">
+      <img class="event-card-img" src="${ev.img}" alt="${ev.titleCs}" onerror="this.style.display='none'">
       <div class="event-card-body">
         <div class="event-card-meta">
           <div class="event-badge ${soldOut?'sold-out':''}">${statusLabel}</div>

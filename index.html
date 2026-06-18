@@ -299,6 +299,7 @@ const EVENTS = [
     status: 'open',
     file: 'event.html',
     img: 'assets/tile%20event.png',
+    imgPosition: 'center 40%',
   },
   {
     id: 'event-2026-07-11',
@@ -313,9 +314,10 @@ const EVENTS = [
       { time:'10:30–11:20', instructor:'Ela', langCs:'Česká lekce',   langEn:'Czech class',   spots:12 },
     ],
     price: 350,
-    status: 'open',
+    status: 'soon',
     file: 'event.html',
     img: 'assets/tile-event-july.jpg',
+    imgPosition: 'center 75%',
   },
 ];
 
@@ -333,26 +335,29 @@ function setLang(l) {
 function renderEvents() {
   const c = document.getElementById('eventsList');
   c.innerHTML = EVENTS.map(ev => {
+    const soon = ev.status === 'soon';
     const totalSpots = ev.sessions.reduce((a,s)=>a+s.spots,0);
-    const soldOut = totalSpots === 0;
-    const few = totalSpots > 0 && totalSpots <= 3;
-    const statusLabel = soldOut
-      ? (lang==='cs'?'Obsazeno':'Sold out')
-      : few
-        ? (lang==='cs'?`Poslední ${totalSpots} místa`:`${totalSpots} spots left`)
-        : (lang==='cs'?'Volná místa':'Available');
-    const dotClass = soldOut ? 'none' : few ? 'few' : '';
+    const soldOut = !soon && totalSpots === 0;
+    const few = !soon && totalSpots > 0 && totalSpots <= 3;
+    const statusLabel = soon
+      ? (lang==='cs'?'Rezervace brzy':'Reservations soon')
+      : soldOut
+        ? (lang==='cs'?'Obsazeno':'Sold out')
+        : few
+          ? (lang==='cs'?`Poslední ${totalSpots} místa`:`${totalSpots} spots left`)
+          : (lang==='cs'?'Volná místa':'Available');
+    const badgeClass = soon ? 'soon' : soldOut ? 'sold-out' : '';
     const sessHtml = ev.sessions.map(s => `
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <span style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--sage-dark);min-width:70px">${s.time}</span>
         <span style="font-size:11px;background:var(--linen);color:var(--sage);padding:2px 10px;border-radius:100px;font-weight:500">${lang==='cs'?s.langCs:s.langEn}</span>
         <span style="font-size:12px;color:var(--text-light)">${lang==='cs'?'s ':'with '}${s.instructor}</span>
       </div>`).join('');
-    return `<a class="event-card" href="${ev.file}">
-      <img class="event-card-img" src="${ev.img}" alt="${ev.titleCs}" onerror="this.style.display='none'">
+    return `<a class="event-card" href="${ev.file}" ${soon?'onclick="return false"':''} style="${soon?'cursor:default':''}">
+      <img class="event-card-img" src="${ev.img}" alt="${ev.titleCs}" style="object-position:${ev.imgPosition||'center 40%'}" onerror="this.style.display='none'">
       <div class="event-card-body">
         <div class="event-card-meta">
-          <div class="event-badge ${soldOut?'sold-out':''}">${statusLabel}</div>
+          <div class="event-badge ${badgeClass}">${statusLabel}</div>
           <span class="event-date-badge">📅 ${lang==='cs'?ev.dateCs:ev.dateEn}</span>
         </div>
         <div class="event-card-title">${lang==='cs'?ev.titleCs:ev.titleEn}</div>

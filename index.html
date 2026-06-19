@@ -84,7 +84,9 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .event-card.soon-card{cursor:default;box-shadow:0 4px 16px rgba(28,35,24,.10),0 1px 4px rgba(28,35,24,.07)}
 .event-card.soon-card:active{transform:none}
 .img-wrap{position:relative}
-.soon-badge-img{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.92);backdrop-filter:blur(6px);border-radius:100px;padding:5px 13px;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--sage-dark);text-transform:uppercase}
+.soon-badge-img{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.92);backdrop-filter:blur(6px);border-radius:100px;padding:5px 13px;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--text-light);text-transform:uppercase;display:inline-flex;align-items:center;gap:6px}
+.soon-badge-available{color:var(--sage-dark)}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--sage-dark);flex-shrink:0}
 .event-card-img{width:100%;height:220px;object-fit:cover;object-position:center 40%;display:block}
 .event-card-img-placeholder{width:100%;height:220px;background:linear-gradient(135deg,var(--sage-dark) 0%,var(--sage) 100%);display:flex;align-items:center;justify-content:center}
 .event-card-body{padding:22px}
@@ -379,7 +381,7 @@ function renderEvents() {
     return `<${tag} ${tagAttr}>
       <div class="img-wrap">
         <img class="event-card-img" src="${ev.img}" alt="${ev.titleCs}" style="object-position:${ev.imgPosition||'center 40%'}" onerror="this.style.display='none'">
-        <span class="soon-badge-img">${statusLabel}</span>
+        <span class="soon-badge-img${!soon && !soldOut ? ' soon-badge-available' : ''}">${!soon && !soldOut ? '<span class="badge-dot"></span>' : ''}${statusLabel}</span>
       </div>
       <div class="event-card-body">
         <div class="event-card-meta">

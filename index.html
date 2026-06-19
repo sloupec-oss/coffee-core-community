@@ -56,12 +56,14 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 
 /* EVENTS LIST */
 .events-section{padding:56px 24px}
+#eventsList{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:640px){#eventsList{grid-template-columns:repeat(2,1fr)}}
 .section-label{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-light);margin-bottom:10px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:var(--sage-dark);margin-bottom:6px}
 .section-sub{font-size:13px;color:var(--text-light);margin-bottom:32px;line-height:1.6}
 
 /* EVENT CARD */
-.event-card{background:var(--white);border-radius:24px;overflow:hidden;margin-bottom:20px;cursor:pointer;transition:transform .2s,box-shadow .2s;text-decoration:none;display:block;color:inherit;box-shadow:0 8px 32px rgba(28,35,24,.22),0 2px 8px rgba(28,35,24,.12)}
+.event-card{background:var(--white);border-radius:24px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;text-decoration:none;display:block;color:inherit;box-shadow:0 8px 32px rgba(28,35,24,.22),0 2px 8px rgba(28,35,24,.12)}
 .event-card:active{transform:scale(.98)}
 .event-card.soon-card{cursor:default;box-shadow:0 4px 16px rgba(28,35,24,.10),0 1px 4px rgba(28,35,24,.07)}
 .event-card.soon-card:active{transform:none}

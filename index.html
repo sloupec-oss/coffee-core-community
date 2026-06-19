@@ -36,6 +36,10 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .hero-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--sage-mist)}
 .hero-title{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:.93;color:var(--cream);margin-bottom:20px;letter-spacing:-.01em}
 .hero-title span{display:block;font-size:clamp(56px,14vw,80px)}
+@media(min-width:640px){
+  .hero-title{display:flex;flex-wrap:wrap;column-gap:.22em}
+  .hero-title span:nth-child(3){width:100%}
+}
 .hero-sub{font-size:14px;color:rgba(245,240,232,.7);line-height:1.6;margin-bottom:28px;max-width:300px}
 .hero-avatars{display:flex;align-items:center;gap:0;margin-bottom:28px}
 .avatar-wrap{position:relative}

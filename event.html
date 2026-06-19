@@ -45,6 +45,10 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-mist);margin-bottom:16px}
 .hero-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(58px,15vw,82px);line-height:.93;color:var(--cream);margin-bottom:22px;letter-spacing:-.01em}
 .hero-title span{display:block}
+@media(min-width:640px){
+  .hero-title{display:flex;flex-wrap:wrap;column-gap:.22em}
+  .hero-title span:nth-child(3){width:100%}
+}
 .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
 .hero-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(245,240,232,.13);border:1px solid rgba(245,240,232,.28);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--cream);letter-spacing:.05em;backdrop-filter:blur(6px)}
 .hero-pill svg{width:12px;height:12px;opacity:.7}

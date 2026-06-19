@@ -3,14 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N7BTQF9KCN"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-N7BTQF9KCN');
-</script>
+<script src="cookie-consent.js"></script>
 <title>Core, Coffee & Community — Ivy & Ela</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -276,6 +269,10 @@ footer{background:var(--sage-dark);padding:40px 24px 60px;text-align:center}
   </div>
   <div class="foot-copy" data-cs>Ve spolupráci s Arnoldova Vila &amp; Cecilie Café · Brno</div>
   <div class="foot-copy" data-en style="display:none">In partnership with Arnoldova Vila &amp; Cecilie Café · Brno</div>
+  <div style="margin-top:16px">
+    <button onclick="reopenCookieConsent()" data-cs style="background:none;border:none;color:var(--sage-mist,#C8D5C4);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-decoration:underline;padding:0">Nastavení cookies</button>
+    <button onclick="reopenCookieConsent()" data-en style="display:none;background:none;border:none;color:var(--sage-mist,#C8D5C4);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-decoration:underline;padding:0">Cookie settings</button>
+  </div>
   <div style="margin-top:20px;font-size:12px;color:var(--cream);line-height:1.8">
     <span data-cs>Potřebuješ zrušit rezervaci? Napiš nám <span style="font-weight:600">24 hodin předem</span>.</span>
     <span data-en style="display:none">Need to cancel? Write to us <span style="font-weight:600">24 hours in advance</span>.</span>

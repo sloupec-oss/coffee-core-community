@@ -379,11 +379,10 @@ function renderEvents() {
     return `<${tag} ${tagAttr}>
       <div class="img-wrap">
         <img class="event-card-img" src="${ev.img}" alt="${ev.titleCs}" style="object-position:${ev.imgPosition||'center 40%'}" onerror="this.style.display='none'">
-        ${soon ? `<span class="soon-badge-img">${lang==='cs'?'Rezervace brzy':'Reservations soon'}</span>` : ''}
+        <span class="soon-badge-img">${statusLabel}</span>
       </div>
       <div class="event-card-body">
         <div class="event-card-meta">
-          ${!soon ? `<div class="event-badge ${badgeClass}">${statusLabel}</div>` : ''}
           <span class="event-date-badge">📅 ${lang==='cs'?ev.dateCs:ev.dateEn}</span>
         </div>
         <div class="event-card-title">${lang==='cs'?ev.titleCs:ev.titleEn}</div>

@@ -38,12 +38,13 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .hero-title span{display:block;font-size:clamp(56px,14vw,80px)}
 .hero-sub{font-size:16px;font-weight:500;color:rgba(245,240,232,.88);line-height:1.6;margin-bottom:40px;max-width:340px;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 @media(min-width:640px){
-  .hero-title{display:flex;flex-wrap:wrap;column-gap:.22em}
+  .hero-title{display:flex;flex-wrap:wrap;column-gap:.22em;margin-bottom:10px}
   .hero-title span:nth-child(3){width:100%}
   .hero{justify-content:flex-end;min-height:52svh}
   .hero-photo{background-position:center 52%}
-  .hero-content{padding:0 24px 52px}
-  .hero-sub{max-width:100%;font-size:14px}
+  .hero-content{padding:0 24px 36px}
+  .hero-sub{max-width:100%;font-size:14px;margin-bottom:16px}
+  .hero-avatars{margin-bottom:16px}
 }
 @media(min-width:1100px){
   .hero-title span:nth-child(3){width:auto}

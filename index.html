@@ -92,7 +92,7 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .event-badge{display:inline-flex;align-items:center;gap:5px;background:var(--linen);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--sage);text-transform:uppercase}
 .event-badge.sold-out{background:#F5EDE8;color:var(--terracotta)}
 .event-badge.soon{background:#EFF4EE;color:var(--sage)}
-.event-date-badge{font-size:12px;color:var(--text-light)}
+.event-date-badge{font-size:13px;font-weight:600;color:var(--sage-dark)}
 .event-card-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--sage-dark);margin-bottom:6px;line-height:1.1}
 .event-card-location{font-size:13px;color:var(--text-light);margin-bottom:14px;display:flex;align-items:center;gap:5px}
 .event-card-location svg{width:12px;height:12px;flex-shrink:0}
@@ -307,8 +307,8 @@ const EVENTS = [
     id: 'event-2026-06-27',
     dateCs: '27. června 2026',
     dateEn: 'June 27, 2026',
-    titleCs: 'Core, Coffee & Community',
-    titleEn: 'Core, Coffee & Community',
+    titleCs: 'Pilates ranní flow',
+    titleEn: 'Pilates morning flow',
     locationCs: 'v zahradě Arnoldovy vily',
     locationEn: 'in the garden of Arnoldova Vila',
     sessions: [
@@ -325,8 +325,8 @@ const EVENTS = [
     id: 'event-2026-07-11',
     dateCs: '11. července 2026',
     dateEn: 'July 11, 2026',
-    titleCs: 'Core, Coffee & Community',
-    titleEn: 'Core, Coffee & Community',
+    titleCs: 'Pilates ranní flow',
+    titleEn: 'Pilates morning flow',
     locationCs: 'v zahradě Arnoldovy vily',
     locationEn: 'in the garden of Arnoldova Vila',
     sessions: [
@@ -391,7 +391,6 @@ function renderEvents() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           ${lang==='cs'?ev.locationCs:ev.locationEn}
         </div>
-        <div style="margin-bottom:14px">${sessHtml}</div>
         <div class="event-card-instructors">
           <div class="event-instr-photos">
             <img class="event-instr-photo" src="assets/ivy.jpg" alt="Ivy">

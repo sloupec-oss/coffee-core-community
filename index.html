@@ -26,7 +26,7 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 .lang-btn.active{background:var(--sage);color:var(--cream);border-radius:100px}
 
 /* HERO */
-.hero{min-height:70svh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero{min-height:70svh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding-top:64px}
 .hero-photo{position:absolute;inset:0;background:url('assets/event.png') center 60%/cover no-repeat;animation:heroZ 18s ease-out forwards}
 @keyframes heroZ{from{transform:scale(1.04)}to{transform:scale(1)}}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,35,24,.08) 0%,rgba(28,35,24,0) 20%,rgba(28,35,24,.5) 60%,rgba(28,35,24,.9) 100%);z-index:1}
@@ -43,7 +43,7 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
   .hero-bg{background:linear-gradient(to bottom,rgba(28,35,24,.45) 0%,rgba(28,35,24,.08) 18%,rgba(28,35,24,0) 30%,rgba(28,35,24,.5) 60%,rgba(28,35,24,.9) 100%)}
   .hero-title{display:flex;flex-wrap:wrap;column-gap:.22em;margin-bottom:10px}
   .hero-title span:nth-child(3){width:100%}
-  .hero{justify-content:flex-end;min-height:52svh}
+  .hero{justify-content:flex-end;min-height:52svh;padding-top:0}
   .hero-photo{background-position:center 52%}
   .hero-content{padding:0 24px 36px}
   .hero-sub{max-width:100%;font-size:14px;margin-bottom:16px}

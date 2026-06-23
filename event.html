@@ -671,8 +671,13 @@ function renderSessions() {
     const sel = selSession===s.id;
     const spotsT = full
       ? (lang==='cs'?'Obsazeno':'Sold out')
-      : few ? (lang==='cs'?`Zbývají ${sp} místa`:`${sp} spots left`)
-             : (lang==='cs'?`${sp} volných míst`:`${sp} spots available`);
+      : few
+        ? (lang==='cs'
+            ? (sp===1?'Zbývá 1 místo':`Zbývají ${sp} místa`)
+            : `${sp} spots left`)
+        : (lang==='cs'
+            ? (sp>=2&&sp<=4?`${sp} volná místa`:`${sp} volných míst`)
+            : `${sp} spots available`);
     return `<div class="session-card${sel?' selected':''}${full?' full':''}"
         style="${full?'opacity:.5;cursor:not-allowed':''}"
         onclick="${full?'':` selSess('${s.id}')`}">

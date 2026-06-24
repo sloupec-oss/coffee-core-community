@@ -13,8 +13,10 @@ async function decrementSpot(sessionId) {
 }
 
 const SESSIONS = {
-  s3: { time: '9:00–9:50',   instructor: 'Ela', langLabel: 'Česká / Czech class' },
-  s1: { time: '10:30–11:20', instructor: 'Ivy', langLabel: 'Anglická / English class' },
+  s3: { time: '9:00–9:50',   instructor: 'Ela', langLabel: 'Česká / Czech class',    dateCs: 'Sobota 27. června 2026',    dateEn: 'Saturday, June 27, 2026' },
+  s1: { time: '10:30–11:20', instructor: 'Ivy', langLabel: 'Anglická / English class', dateCs: 'Sobota 27. června 2026',  dateEn: 'Saturday, June 27, 2026' },
+  s4: { time: '9:00–9:50',   instructor: 'Ivy', langLabel: 'Anglická / English class', dateCs: 'Sobota 11. července 2026', dateEn: 'Saturday, July 11, 2026' },
+  s2: { time: '10:30–11:20', instructor: 'Ela', langLabel: 'Česká / Czech class',    dateCs: 'Sobota 11. července 2026',  dateEn: 'Saturday, July 11, 2026' },
 };
 
 module.exports = async function handler(req, res) {
@@ -51,6 +53,7 @@ module.exports = async function handler(req, res) {
       name: meta.customerName,
       email: meta.customerEmail,
       phone: meta.customerPhone,
+      mat: meta.mat,
       sess,
       paymentId: session.payment_intent,
       amountPaid: (session.amount_total / 100).toFixed(0),
@@ -71,7 +74,7 @@ async function getRawBody(req) {
 
 async function notifyCustomer({ name, email, sess, sessionId, bookingId }) {
   if (!email) return;
-  const isEn = sessionId === 's1';
+  const isEn = sessionId === 's1' || sessionId === 's4';
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: { user: process.env.ORGANIZER_EMAIL, pass: process.env.GMAIL_APP_PASSWORD },
@@ -87,7 +90,7 @@ async function notifyCustomer({ name, email, sess, sessionId, bookingId }) {
 your spot is confirmed! 🌿 We can't wait to see you.
 
 Session details:
-📅 Saturday, June 27, 2026
+📅 ${sess.dateEn}
 ⏰ ${sess.time} — ${sess.langLabel}
 👩‍🏫 Instructor: ${sess.instructor}
 📍 Arnoldova Vila, Drobného 299/26, Brno
@@ -110,7 +113,7 @@ Coffee, Core & Community — Arnoldova Vila`
 tvoje místo je rezervované! 🌿 Těšíme se na tebe.
 
 Detaily lekce:
-📅 Sobota 27. června 2026
+📅 ${sess.dateCs}
 ⏰ ${sess.time} — ${sess.langLabel}
 👩‍🏫 Instruktorka: ${sess.instructor}
 📍 Arnoldova Vila, Drobného 299/26, Brno
@@ -142,7 +145,7 @@ Coffee, Core & Community — Arnoldova Vila`;
   }
 }
 
-async function notifyOrganizer({ name, email, phone, sess, paymentId, amountPaid }) {
+async function notifyOrganizer({ name, email, phone, mat, sess, paymentId, amountPaid }) {
   const organizer = process.env.ORGANIZER_EMAIL;
   if (!organizer) return;
 
@@ -154,6 +157,7 @@ Email: ${email || '—'}
 Telefon: ${phone || '—'}
 Lekce: ${sess.time} — ${sess.langLabel}
 Instruktorka: ${sess.instructor}
+Podložka: ${mat === 'borrow' ? '🤝 Potřebuje půjčit' : '🧘 Přinese vlastní'}
 Zaplaceno: ${amountPaid} Kč
 Stripe Payment ID: ${paymentId}
 Čas: ${new Date().toLocaleString('cs-CZ', { timeZone: 'Europe/Prague' })}`;

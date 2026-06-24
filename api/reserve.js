@@ -12,15 +12,17 @@ async function decrementSpot(sessionId) {
 }
 
 const SESSIONS = {
-  s3: { time: '9:00–9:50',   instructor: 'Ela', langLabel: 'Česká / Czech class' },
-  s1: { time: '10:30–11:20', instructor: 'Ivy', langLabel: 'Anglická / English class' },
+  s3: { time: '9:00–9:50',   instructor: 'Ela', langLabel: 'Česká / Czech class',    dateCs: 'Sobota 27. června 2026',   dateEn: 'Saturday, June 27, 2026' },
+  s1: { time: '10:30–11:20', instructor: 'Ivy', langLabel: 'Anglická / English class', dateCs: 'Sobota 27. června 2026', dateEn: 'Saturday, June 27, 2026' },
+  s4: { time: '9:00–9:50',   instructor: 'Ivy', langLabel: 'Anglická / English class', dateCs: 'Sobota 11. července 2026', dateEn: 'Saturday, July 11, 2026' },
+  s2: { time: '10:30–11:20', instructor: 'Ela', langLabel: 'Česká / Czech class',    dateCs: 'Sobota 11. července 2026',  dateEn: 'Saturday, July 11, 2026' },
 };
 
 module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') { res.status(200).end(); return; }
   if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
 
-  const { sessionId, name, email, phone, paymentMethod, lang } = req.body;
+  const { sessionId, name, email, phone, mat, paymentMethod, lang } = req.body;
 
   if (!sessionId || !name || !email || !SESSIONS[sessionId]) {
     res.status(400).json({ error: 'Missing required fields' });
@@ -29,10 +31,10 @@ module.exports = async function handler(req, res) {
 
   const sess = SESSIONS[sessionId];
   const bookingId = `CCC-${Date.now()}`;
-  const isEn = sessionId === 's1'; // Ivy's class is always English, Ela's always Czech
+  const isEn = sessionId === 's1' || sessionId === 's4';
 
   await notifyCustomer({ bookingId, name, email, sess, isEn });
-  await notifyOrganizer({ bookingId, name, email, phone, sess });
+  await notifyOrganizer({ bookingId, name, email, phone, mat, sess });
   await decrementSpot(sessionId);
 
   res.status(200).json({
@@ -64,7 +66,7 @@ async function notifyCustomer({ bookingId, name, email, sess, isEn }) {
 your spot is confirmed! 🌿 We can't wait to see you.
 
 Session details:
-📅 Saturday, June 27, 2026
+📅 ${sess.dateEn}
 ⏰ ${sess.time} — ${sess.langLabel}
 👩‍🏫 Instructor: ${sess.instructor}
 📍 Arnoldova Vila, Drobného 299/26, Brno
@@ -87,7 +89,7 @@ Coffee, Core & Community — Arnoldova Vila`
 tvoje místo je rezervované! 🌿 Těšíme se na tebe.
 
 Detaily lekce:
-📅 Sobota 27. června 2026
+📅 ${sess.dateCs}
 ⏰ ${sess.time} — ${sess.langLabel}
 👩‍🏫 Instruktorka: ${sess.instructor}
 📍 Arnoldova Vila, Drobného 299/26, Brno
@@ -95,7 +97,7 @@ Detaily lekce:
 🔖 ID rezervace: ${bookingId}
 
 Co si přinést:
-Pohodlné oblečení a podložku na cvičení na cvičení. Drink od Cecilie Café je součástí ceny 🌿
+Pohodlné oblečení a podložku na cvičení. Drink od Cecilie Café je součástí ceny 🌿
 Nemáš podložku na cvičení? Napiš nám předem na pilatesarnoldovavila@gmail.com a rádi ti ji zapůjčíme.
 
 Zrušení rezervace:
@@ -119,7 +121,7 @@ Coffee, Core & Community — Arnoldova Vila`;
   }
 }
 
-async function notifyOrganizer({ bookingId, name, email, phone, sess }) {
+async function notifyOrganizer({ bookingId, name, email, phone, mat, sess }) {
   const organizer = process.env.ORGANIZER_EMAIL;
   if (!organizer) return;
 
@@ -132,6 +134,7 @@ Email: ${email}
 Telefon: ${phone || '—'}
 Lekce: ${sess.time} — ${sess.langLabel}
 Instruktorka: ${sess.instructor}
+Podložka: ${mat === 'borrow' ? '🤝 Potřebuje půjčit' : '🧘 Přinese vlastní'}
 Platba: Hotově na místě
 Rezervace ID: ${bookingId}
 Čas: ${new Date().toLocaleString('cs-CZ', { timeZone: 'Europe/Prague' })}

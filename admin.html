@@ -96,11 +96,25 @@ body{background:var(--linen);color:var(--text-dark);font-family:'DM Sans',sans-s
 
 <script>
 const ADMIN_PASS = 'arnoldova25';
-const SESSIONS = [
-  { id: 's3', time: '9:00–9:50',   instructor: 'Ela', label: 'Česká lekce' },
-  { id: 's1', time: '10:30–11:20', instructor: 'Ivy', label: 'Anglická lekce' },
+const EVENTS = [
+  {
+    label: '27. června 2026',
+    sessions: [
+      { id: 's3', time: '9:00–9:50',   instructor: 'Ela', label: 'Česká lekce' },
+      { id: 's1', time: '10:30–11:20', instructor: 'Ivy', label: 'Anglická lekce' },
+    ],
+    storageKey: 'rl_bookings',
+  },
+  {
+    label: '11. července 2026',
+    sessions: [
+      { id: 's4', time: '9:00–9:50',   instructor: 'Ivy', label: 'Anglická lekce' },
+      { id: 's2', time: '10:30–11:20', instructor: 'Ela', label: 'Česká lekce' },
+    ],
+    storageKey: 'rl_bookings_july',
+  },
 ];
-let spots = { s1: '?', s3: '?' };
+let spots = { s1: '?', s3: '?', s2: '?', s4: '?' };
 
 function login() {
   const val = document.getElementById('passInput').value;
@@ -130,14 +144,16 @@ async function loadSpots() {
   try {
     const r = await fetch('/api/spots');
     const d = await r.json();
-    spots.s1 = d.s1;
-    spots.s3 = d.s3;
+    spots.s1 = d.s1; spots.s3 = d.s3;
+    spots.s2 = d.s2; spots.s4 = d.s4;
   } catch(e) {}
   renderSpots();
 }
 
 function renderSpots() {
-  document.getElementById('spotsCard').innerHTML = SESSIONS.map(s => `
+  document.getElementById('spotsCard').innerHTML = EVENTS.map(ev => `
+    <div style="padding:10px 20px 4px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-light);border-bottom:1px solid var(--cream-dark)">${ev.label}</div>
+    ${ev.sessions.map(s => `
     <div class="spot-row">
       <div class="spot-info">
         <div class="spot-time">${s.time} · ${s.instructor}</div>
@@ -148,7 +164,7 @@ function renderSpots() {
         <button class="take-btn" id="tbtn-${s.id}" onclick="takeSpot('${s.id}')">−1</button>
         <button class="restore-btn" id="rbtn-${s.id}" onclick="restoreSpot('${s.id}')">+1</button>
       </div>
-    </div>
+    </div>`).join('')}
   `).join('');
 }
 
@@ -206,16 +222,20 @@ async function takeSpot(sid) {
 }
 
 function renderBookings() {
-  const bks = JSON.parse(localStorage.getItem('rl_bookings') || '[]');
-  renderStats(bks);
-  document.getElementById('bookingsList').innerHTML = bks.length === 0
+  const allBks = EVENTS.flatMap(ev =>
+    JSON.parse(localStorage.getItem(ev.storageKey) || '[]').map(b => ({ ...b, _eventLabel: ev.label }))
+  ).sort((a, b) => new Date(b.at) - new Date(a.at));
+
+  renderStats(allBks);
+
+  document.getElementById('bookingsList').innerHTML = allBks.length === 0
     ? '<p style="text-align:center;color:var(--text-light);padding:32px 0;font-size:13px">Žádné rezervace</p>'
-    : [...bks].reverse().map(b => `
+    : allBks.map(b => `
       <div class="booking-card">
         <div class="booking-name">${b.name}</div>
         <div class="booking-detail">
           ${b.email}<br>
-          ${b.stime} · ${b.sinstructor}<br>
+          ${b._eventLabel} · ${b.stime} · ${b.sinstructor}<br>
           <span class="payment-badge ${b.payment}">${b.payment === 'card' ? 'Karta' : 'Hotovost'}</span>
           &nbsp;<span style="color:var(--text-light);font-size:11px">${new Date(b.at).toLocaleString('cs')}</span>
         </div>
@@ -223,7 +243,7 @@ function renderBookings() {
 }
 
 function renderStats(bks) {
-  bks = bks || JSON.parse(localStorage.getItem('rl_bookings') || '[]');
+  bks = bks || EVENTS.flatMap(ev => JSON.parse(localStorage.getItem(ev.storageKey) || '[]'));
   const total = bks.length;
   const cash = bks.filter(b => b.payment === 'cash').length;
   const card = bks.filter(b => b.payment === 'card').length;

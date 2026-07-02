@@ -282,7 +282,7 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
     <div class="hero-meta">
       <div class="hero-pill">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span data-cs>27. června 2026</span><span data-en style="display:none">June 27, 2026</span>
+        <span id="eventDateCs" data-cs>27. června 2026</span><span id="eventDateEn" data-en style="display:none">June 27, 2026</span>
       </div>
       <div class="hero-pill">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -356,8 +356,8 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
       <p class="instr-bio" data-cs>Pilates jsem objevila v Asii a okamžitě si zamilovala jeho vliv na tělo i mysl. Absolvovala jsem výcvik STOTT Pilates a pomáhám klientům pohybovat se lépe, posílit střed těla, zlepšit držení a radovat se z toho, co jejich tělo dokáže.</p>
       <p class="instr-bio" data-en style="display:none">I discovered Pilates in Asia a few years ago and quickly fell in love with its effect on both body and mind. Trained in STOTT Pilates across various apparatus, I help clients move better, build core strength, improve alignment, and enjoy what their bodies can achieve.</p>
       <div class="instr-divider"></div>
-      <p class="instr-session" data-cs><strong>10:30 – 11:20</strong> · Anglická lekce · 27. června</p>
-      <p class="instr-session" data-en style="display:none"><strong>10:30 – 11:20 AM</strong> · English class · June 27</p>
+      <p class="instr-session" id="instrIvyCs" data-cs><strong>10:30 – 11:20</strong> · Anglická lekce · 27. června</p>
+      <p class="instr-session" id="instrIvyEn" data-en style="display:none"><strong>10:30 – 11:20 AM</strong> · English class · June 27</p>
     </div>
   </div>
 
@@ -378,8 +378,8 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
       <p class="instr-bio" data-cs>Pohyb je pro mě celoživotní cestou k sobě. Díky vlastní zkušenosti s hypermobilitou vím, jak důležité je najít v těle pevnou oporu. Díky Pilates vnímám pohyb v souvislostech — propojuji celé tělo s logikou a precizností. Kladu důraz na vědomé propojení těla a mysli.</p>
       <p class="instr-bio" data-en style="display:none">Movement is my lifelong path to self-discovery. Through my own experience with hypermobility, I understand how important it is to find strength and stability in the body. I connect the whole body with logic and precision, emphasising the conscious body-mind connection.</p>
       <div class="instr-divider"></div>
-      <p class="instr-session" data-cs><strong>9:00 – 9:50</strong> · Česká lekce · 27. června</p>
-      <p class="instr-session" data-en style="display:none"><strong>9:00 – 9:50 AM</strong> · Czech class · June 27</p>
+      <p class="instr-session" id="instrElaCs" data-cs><strong>9:00 – 9:50</strong> · Česká lekce · 27. června</p>
+      <p class="instr-session" id="instrElaEn" data-en style="display:none"><strong>9:00 – 9:50 AM</strong> · Czech class · June 27</p>
     </div>
   </div>
 
@@ -603,25 +603,58 @@ footer{background:var(--sage-dark);color:var(--sage-mist);padding:40px 24px 60px
 </footer>
 
 <script>
-const SESSIONS = [
-  { id:'s3', time:'9:00', endTime:'9:50', instructor:'Ela', instructorCs:'Eli', lang:'cs', langLabel:{cs:'Česká lekce',en:'Czech class'}, spots:12, max:12 },
-  { id:'s1', time:'10:30', endTime:'11:20', instructor:'Ivy', instructorCs:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce',en:'English class'}, spots:12, max:12 },
-];
+const EVENT_JUNE27 = {
+  dateCs:'27. června 2026', dateEn:'June 27, 2026', dateSumCs:'27. 6.',
+  sessions:[
+    { id:'s3', time:'9:00',  endTime:'9:50',  instructor:'Ela', instructorCs:'Ela', lang:'cs', langLabel:{cs:'Česká lekce',   en:'Czech class'},   spots:12, max:12 },
+    { id:'s1', time:'10:30', endTime:'11:20', instructor:'Ivy', instructorCs:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce', en:'English class'}, spots:12, max:12 },
+  ],
+  instrSession:{
+    ivy:{ cs:'<strong>10:30 – 11:20</strong> · Anglická lekce · 27. června', en:'<strong>10:30 – 11:20 AM</strong> · English class · June 27' },
+    ela:{ cs:'<strong>9:00 – 9:50</strong> · Česká lekce · 27. června',      en:'<strong>9:00 – 9:50 AM</strong> · Czech class · June 27' },
+  },
+  faqSessionCs:'Lekci ve 9:00 vede Ela česky s důrazem na body-mind propojení. Lekci ve 10:30 vede Ivy v angličtině (STOTT metoda). Obsah je obdobný, liší se jazyk a přístup instruktorky.',
+  faqSessionEn:'The 9:00 AM session is led by Ela in Czech with a focus on body-mind connection. The 10:30 AM session is led by Ivy in English using the STOTT method. The content is similar — it\'s the language and instructor\'s approach that differ.',
+};
+const EVENT_JULY11 = {
+  dateCs:'11. července 2026', dateEn:'July 11, 2026', dateSumCs:'11. 7.',
+  sessions:[
+    { id:'s4', time:'9:00',  endTime:'9:50',  instructor:'Ivy', instructorCs:'Ivy', lang:'en', langLabel:{cs:'Anglická lekce', en:'English class'}, spots:12, max:12 },
+    { id:'s2', time:'10:30', endTime:'11:20', instructor:'Ela', instructorCs:'Ela', lang:'cs', langLabel:{cs:'Česká lekce',   en:'Czech class'},   spots:12, max:12 },
+  ],
+  instrSession:{
+    ivy:{ cs:'<strong>9:00 – 9:50</strong> · Anglická lekce · 11. července', en:'<strong>9:00 – 9:50 AM</strong> · English class · July 11' },
+    ela:{ cs:'<strong>10:30 – 11:20</strong> · Česká lekce · 11. července',   en:'<strong>10:30 – 11:20 AM</strong> · Czech class · July 11' },
+  },
+  faqSessionCs:'Lekci v 9:00 vede Ivy anglicky (STOTT metoda). Lekci v 10:30 vede Ela česky s důrazem na body-mind propojení. Obsah je obdobný, liší se jazyk a přístup instruktorky.',
+  faqSessionEn:'The 9:00 AM session is led by Ivy in English using the STOTT method. The 10:30 AM session is led by Ela in Czech with a focus on body-mind connection. The content is similar — it\'s the language and instructor\'s approach that differ.',
+};
+
+const ACTIVE_EVENT = new Date() >= new Date('2026-06-28') ? EVENT_JULY11 : EVENT_JUNE27;
+const SESSIONS = ACTIVE_EVENT.sessions;
 const PRICE = 350;
 const FAQ_CS = [
   {q:'Co si mám přinést?', a:'Karimatku na cvičení a pohodlné oblečení. Drink od Cecilie Café je součástí ceny. 🌿\n🧘 Nemáš karimatku? Napiš nám na <strong style="font-weight:600">pilatesarnoldovavila@gmail.com</strong> a rádi ti ji zapůjčíme.'},
   {q:'Je lekce vhodná pro začátečníky?', a:'Ano! Lekce jsou přizpůsobeny všem úrovním. Instruktoři vám pomohou s modifikacemi.'},
-  {q:'Jaký je rozdíl mezi lekcemi?', a:'Lekci ve 9:00 vede Ela česky s důrazem na body-mind propojení. Lekci ve 10:30 vede Ivy v angličtině (STOTT metoda). Obsah je obdobný, liší se jazyk a přístup instruktorky.'},
+  {q:'Jaký je rozdíl mezi lekcemi?', a:ACTIVE_EVENT.faqSessionCs},
   {q:'Co když bude pršet?', a:'Dáme vám vědět, že se akce nekoná, a nabídneme jiný termín nebo vrátíme platbu.'},
   {q:'Mohu zrušit rezervaci?', a:'Rezervaci lze zrušit zdarma nejpozději 24 hodin před lekcí. Pozdější zrušení se nevrací.'},
 ];
 const FAQ_EN = [
   {q:'What should I bring?', a:'A yoga mat and comfortable clothes. A drink from Cecilie Café is included in the price. 🌿\n🧘 No mat? Email us at <strong style="font-weight:600">pilatesarnoldovavila@gmail.com</strong> and we\'ll lend you one.'},
   {q:'Is the class suitable for beginners?', a:'Absolutely! Classes are adapted for all levels and modifications will be offered.'},
-  {q:'What\'s the difference between the sessions?', a:'The 9:00 AM session is led by Ela in Czech with a focus on body-mind connection. The 10:30 AM session is led by Ivy in English using the STOTT method. The content is similar — it\'s the language and instructor\'s approach that differ.'},
+  {q:'What\'s the difference between the sessions?', a:ACTIVE_EVENT.faqSessionEn},
   {q:'What if it rains?', a:'We\'ll let you know if the event is cancelled and offer you an alternative date or a full refund.'},
   {q:'Can I cancel my booking?', a:'Cancellations are free up to 24 hours before the session. Later cancellations are non-refundable.'},
 ];
+
+// Update HTML elements with active event data
+document.getElementById('eventDateCs').textContent = ACTIVE_EVENT.dateCs;
+document.getElementById('eventDateEn').textContent = ACTIVE_EVENT.dateEn;
+document.getElementById('instrIvyCs').innerHTML = ACTIVE_EVENT.instrSession.ivy.cs;
+document.getElementById('instrIvyEn').innerHTML = ACTIVE_EVENT.instrSession.ivy.en;
+document.getElementById('instrElaCs').innerHTML = ACTIVE_EVENT.instrSession.ela.cs;
+document.getElementById('instrElaEn').innerHTML = ACTIVE_EVENT.instrSession.ela.en;
 
 let lang = 'cs';
 let selSession = null;
@@ -709,7 +742,7 @@ function selSess(id) {
 function updateSummary() {
   if(!selSession) return;
   const s = SESSIONS.find(x=>x.id===selSession);
-  document.getElementById('sumSession').textContent = `${s.time}–${s.endTime} · 27. 6.`;
+  document.getElementById('sumSession').textContent = `${s.time}–${s.endTime} · ${ACTIVE_EVENT.dateSumCs}`;
   document.getElementById('sumInstructor').textContent = s.instructor;
 }
 
